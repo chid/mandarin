@@ -1,0 +1,1713 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ear - Mandarin Pronunciation</title>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="67bfe19e-e092-40c0-91b8-453a0e2b883d"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg: #0a0a0b;
+        --bg-subtle: #141416;
+        --text: #fafafa;
+        --text-muted: #71717a;
+        --accent: #6366f1;
+        --accent-glow: rgba(99, 102, 241, 0.4);
+        --correct: #22c55e;
+        --correct-bg: rgba(34, 197, 94, 0.15);
+        --close: #f59e0b;
+        --close-bg: rgba(251, 191, 36, 0.12);
+        --wrong: #ef4444;
+        --wrong-bg: rgba(239, 68, 68, 0.15);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+        background: radial-gradient(ellipse at 50% 40%, #0d0d14 0%, #0a0a0b 50%, #050506 100%);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-x: hidden;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 800px;
+        padding: 24px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 0.6s ease forwards;
+      }
+
+      .header h1 {
+        font-size: 36px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+
+      .header .byline {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+      }
+
+      .header .byline a {
+        color: var(--accent);
+        text-decoration: none;
+        transition: opacity 0.2s;
+      }
+
+      .header .byline a:hover {
+        opacity: 0.8;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--correct);
+        background: var(--correct-bg);
+        padding: 4px 12px;
+        border-radius: 20px;
+      }
+
+      .status-badge .dot {
+        width: 6px;
+        height: 6px;
+        background: var(--correct);
+        border-radius: 50%;
+        animation: pulse 2s ease infinite;
+      }
+
+      /* Sentence Input */
+      .sentence-section {
+        width: 100%;
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 0.6s ease 0.1s forwards;
+      }
+
+      .sentence-input {
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: clamp(24px, 6vw, 40px);
+        font-weight: 300;
+        background: transparent;
+        border: none;
+        color: var(--text);
+        text-align: center;
+        width: 100%;
+        outline: none;
+        letter-spacing: 0.02em;
+      }
+
+      .sentence-input::placeholder {
+        color: var(--text-muted);
+      }
+
+      .sentence-section {
+        transition: opacity 0.3s ease, max-height 0.4s ease, margin 0.4s ease;
+        max-height: 150px;
+        overflow: visible;
+      }
+
+      .sentence-section.hidden {
+        opacity: 0;
+        max-height: 0;
+        margin: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .sentence-wrapper {
+        position: relative;
+        display: inline-block;
+        /* Extend hover zone to include the edit icon area */
+        padding-right: 32px;
+        margin-right: -32px;
+      }
+
+      .edit-icon {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        color: var(--text-muted);
+        opacity: 0;
+        cursor: pointer;
+        transition: opacity 0.2s ease, color 0.2s ease;
+      }
+
+      .sentence-wrapper:hover .edit-icon {
+        opacity: 0.5;
+      }
+
+      .sentence-input:focus ~ .edit-icon {
+        opacity: 0.7;
+        color: var(--text);
+      }
+
+      .edit-icon:hover {
+        opacity: 1 !important;
+        color: var(--accent) !important;
+      }
+
+      /* Character Display */
+      .characters {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        min-height: 100px;
+        opacity: 0;
+        animation: fadeIn 0.6s ease 0.2s forwards;
+      }
+
+      /* Edit hint that appears when sentence is hidden */
+      .edit-hint {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 8px 16px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.2s ease;
+        margin-bottom: 8px;
+      }
+
+      .edit-hint:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+      }
+
+      .edit-hint svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .sentence-section.hidden ~ .characters-section .edit-hint {
+        display: inline-flex;
+      }
+
+      .characters-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Short sentence warning */
+      .short-warning {
+        display: none;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--close);
+        padding: 6px 14px;
+        border-radius: 16px;
+        background: rgba(251, 191, 36, 0.08);
+        border: 1px solid rgba(251, 191, 36, 0.15);
+        margin-bottom: 10px;
+      }
+
+      .short-warning.visible {
+        display: inline-flex;
+      }
+
+      .short-warning svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+      }
+
+      .char-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .char-wrapper.revealed {
+        animation: revealChar 0.5s ease forwards;
+      }
+
+      .char {
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: clamp(32px, 8vw, 48px);
+        font-weight: 400;
+        padding: 12px 18px;
+        border-radius: 12px;
+        background: var(--bg-subtle);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .char::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .char.correct {
+        background: var(--correct-bg);
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+      }
+
+      .char.correct::before {
+        background: linear-gradient(135deg, transparent 50%, rgba(34, 197, 94, 0.1));
+        opacity: 1;
+      }
+
+      .char.close {
+        background: var(--close-bg);
+        box-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
+      }
+
+      .char.close::before {
+        background: linear-gradient(135deg, transparent 50%, rgba(251, 191, 36, 0.08));
+        opacity: 1;
+      }
+
+      .char.wrong {
+        background: var(--wrong-bg);
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
+      }
+
+      .char.wrong::before {
+        background: linear-gradient(135deg, transparent 50%, rgba(239, 68, 68, 0.1));
+        opacity: 1;
+      }
+
+      .char-feedback {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        color: var(--text-muted);
+        min-height: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s ease 0.2s;
+        position: relative;
+      }
+
+      .char-feedback::before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        width: 1px;
+        height: 6px;
+        background: linear-gradient(to bottom, var(--text-muted), transparent);
+        opacity: 0.4;
+      }
+
+      .char-wrapper.revealed .char-feedback {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .feedback-heard {
+        color: #f87171;
+        font-weight: 500;
+      }
+
+      .feedback-target {
+        color: #a1a1aa;
+        font-size: 11px;
+      }
+
+      .feedback-correct {
+        color: var(--correct);
+        font-size: 18px;
+      }
+
+      .feedback-sandhi {
+        color: var(--text-muted);
+        font-size: 10px;
+        opacity: 0.7;
+      }
+
+      /* Pinyin toggle */
+      .pinyin-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 6px 12px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.2s ease;
+        user-select: none;
+      }
+
+      .pinyin-toggle:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+      }
+
+      .pinyin-toggle.active {
+        color: var(--accent);
+        border-color: rgba(99, 102, 241, 0.3);
+        background: rgba(99, 102, 241, 0.1);
+      }
+
+      .pinyin-toggle svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* Ruby pinyin styling */
+      .char ruby {
+        display: ruby;
+        ruby-position: over;
+      }
+
+      .char rt {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 400;
+        /* Hide without breaking ruby layout */
+        font-size: 0;
+        line-height: 0;
+      }
+
+      .show-pinyin .char rt {
+        font-size: 11px;
+        line-height: normal;
+      }
+
+      .char rb {
+        font-family: 'Noto Sans SC', sans-serif;
+      }
+
+      /* Input pinyin display */
+      .input-pinyin {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        color: var(--text-muted);
+        text-align: center;
+        margin-top: 8px;
+        min-height: 20px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        display: flex;
+        justify-content: center;
+      }
+
+      .show-pinyin .input-pinyin {
+        opacity: 1;
+      }
+
+      .input-pinyin span {
+        display: inline-block;
+        /* Minimum width matches character, but can grow for longer pinyin */
+        min-width: clamp(24px, 6vw, 40px);
+        text-align: center;
+        padding: 0 2px;
+      }
+
+      /* Speak Button */
+      .speak-section {
+        opacity: 0;
+        animation: fadeIn 0.6s ease 0.3s forwards;
+      }
+
+      .speak-btn {
+        position: relative;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: none;
+        background: var(--accent);
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0 0 0 var(--accent-glow);
+      }
+
+      .speak-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px var(--accent-glow);
+      }
+
+      .speak-btn:active {
+        transform: scale(0.98);
+      }
+
+      .speak-btn.recording {
+        background: var(--wrong);
+        animation: recordingPulse 1.5s ease infinite;
+      }
+
+      .speak-btn.processing {
+        background: var(--accent);
+        pointer-events: none;
+      }
+
+      .speak-btn svg {
+        width: 26px;
+        height: 26px;
+        transition: all 0.2s ease;
+      }
+
+      .speak-btn.recording svg {
+        transform: scale(0.9);
+      }
+
+      .speak-btn.processing svg {
+        animation: spin 1s linear infinite;
+      }
+
+      .speak-label {
+        margin-top: 10px;
+        font-size: 12px;
+        color: var(--text-muted);
+        text-align: center;
+      }
+
+      .playback-btn {
+        width: 36px;
+        height: 36px;
+        margin-left: 14px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: var(--bg-subtle);
+        color: var(--text-muted);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
+
+      .playback-btn.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .speak-btn-wrapper:has(.speak-btn.recording) .playback-btn {
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+
+      .playback-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+      }
+
+      .playback-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .speak-btn-wrapper {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-spacer {
+        width: 36px;
+        margin-right: 14px;
+        visibility: hidden;
+      }
+
+      /* Waveform visualizer */
+      .waveform-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 100px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .waveform-ring.active {
+        opacity: 1;
+      }
+
+      .waveform-bar {
+        position: absolute;
+        width: 2px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 1px;
+        transform-origin: center bottom;
+        transition: height 0.06s ease-out;
+        box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+      }
+
+      /* Loading overlay */
+      .loading-overlay {
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 40%, #0d0d14 0%, #0a0a0b 50%, #050506 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        z-index: 100;
+        transition: opacity 0.5s ease;
+      }
+
+      .loading-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loading-spinner {
+        width: 48px;
+        height: 48px;
+        border: 3px solid var(--bg-subtle);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .loading-text {
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      .loading-progress {
+        width: 200px;
+        height: 4px;
+        background: var(--bg-subtle);
+        border-radius: 2px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+
+      .loading-progress-bar {
+        height: 100%;
+        background: var(--accent);
+        border-radius: 2px;
+        width: 0%;
+        transition: width 0.2s ease;
+      }
+
+      .loading-size {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 8px;
+        opacity: 0.7;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes revealChar {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+
+      @keyframes recordingPulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+        50% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Example Sentences */
+      .examples {
+        width: 100%;
+        opacity: 0;
+        animation: fadeIn 0.6s ease 0.4s forwards;
+      }
+
+      .examples-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+      }
+
+      .examples-tab {
+        font-size: 11px;
+        color: var(--text-muted);
+        background: transparent;
+        border: 1px solid transparent;
+        padding: 5px 12px;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .examples-tab:hover {
+        color: var(--text);
+      }
+
+      .examples-tab.active {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .examples-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .example-btn {
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--text);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .example-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+      }
+
+      /* Footer */
+      .footer {
+        margin-top: 16px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .footer a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .footer a:hover {
+        color: var(--text);
+      }
+
+      .footer svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* Responsive */
+      @media (max-width: 600px) {
+        body {
+          justify-content: flex-start;
+          padding-top: 24px;
+        }
+
+        .container {
+          padding: 16px 12px;
+          gap: 20px;
+        }
+
+        .header h1 {
+          font-size: 28px;
+          margin-bottom: 2px;
+        }
+
+        .header h2 {
+          font-size: 16px;
+        }
+
+        .header .byline {
+          margin-bottom: 8px;
+        }
+
+        .sentence-input {
+          font-size: 28px;
+        }
+
+        .characters {
+          min-height: 80px;
+          gap: 8px;
+        }
+
+        .char {
+          padding: 10px 14px;
+          font-size: 32px;
+        }
+
+        .speak-btn {
+          width: 56px;
+          height: 56px;
+        }
+
+        .speak-btn svg {
+          width: 24px;
+          height: 24px;
+        }
+
+        .speak-label {
+          margin-top: 8px;
+        }
+
+        .examples {
+          margin-top: auto;
+          padding-bottom: 20px;
+        }
+
+        .examples-tabs {
+          gap: 2px;
+          margin-bottom: 10px;
+        }
+
+        .examples-tab {
+          font-size: 10px;
+          padding: 4px 8px;
+        }
+
+        .examples-list {
+          gap: 6px;
+        }
+
+        .example-btn {
+          padding: 6px 12px;
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+      <div class="loading-spinner"></div>
+      <div id="loadingText" class="loading-text">Loading...</div>
+      <div id="loadingProgress" class="loading-progress" style="display: none;">
+        <div id="loadingProgressBar" class="loading-progress-bar"></div>
+      </div>
+      <div id="loadingSize" class="loading-size"></div>
+    </div>
+
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <h1>Ear</h1>
+        <h2>Mandarin Pronunciation Experiment</h2>
+        <div class="byline">by <a href="https://simedw.com" target="_blank">@SimEdw</a></div>
+      </header>
+
+      <!-- Sentence Input -->
+      <section class="sentence-section">
+        <div class="sentence-wrapper">
+          <input 
+            type="text" 
+            id="sentenceInput" 
+            class="sentence-input" 
+            placeholder="输入中文句子"
+            value="他是我的朋友"
+          />
+          <svg id="editIcon" class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+            <path d="m15 5 4 4"/>
+          </svg>
+        </div>
+        <div id="inputPinyin" class="input-pinyin"></div>
+      </section>
+
+      <!-- Character Display -->
+      <section class="characters-section">
+        <div style="display: flex; gap: 8px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 8px;">
+          <button id="editHint" class="edit-hint" style="margin-bottom: 0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+              <path d="m15 5 4 4"/>
+            </svg>
+            Edit sentence
+          </button>
+          <button id="pinyinToggle" class="pinyin-toggle" title="Show pinyin above characters">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            Pinyin
+          </button>
+        </div>
+        <div id="shortWarning" class="short-warning">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Short phrases may be less accurate
+        </div>
+        <div id="characters" class="characters">
+          <!-- Characters will be inserted here -->
+        </div>
+      </section>
+
+      <!-- Speak Button -->
+      <section class="speak-section">
+        <div class="speak-btn-wrapper">
+          <!-- Left spacer for balance -->
+          <div class="btn-spacer"></div>
+          <!-- Main speak button -->
+          <div style="position: relative;">
+            <button id="speakBtn" class="speak-btn" disabled>
+              <!-- Microphone icon -->
+              <svg id="micIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" x2="12" y1="19" y2="22"/>
+              </svg>
+              <!-- Stop icon (hidden by default) -->
+              <svg id="stopIcon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                <rect x="6" y="6" width="12" height="12" rx="2"/>
+              </svg>
+              <!-- Spinner icon (hidden by default) -->
+              <svg id="spinnerIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+              </svg>
+            </button>
+            <!-- Waveform visualizer ring -->
+            <div id="waveformRing" class="waveform-ring"></div>
+          </div>
+          <!-- Playback button -->
+          <button id="playbackBtn" class="playback-btn" title="Play recording">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5,3 19,12 5,21"/>
+            </svg>
+          </button>
+        </div>
+        <div id="speakLabel" class="speak-label">Tap to speak</div>
+      </section>
+
+      <!-- Example Sentences -->
+      <section class="examples">
+        <div class="examples-tabs">
+          <button class="examples-tab active" data-category="easy">Easy</button>
+          <button class="examples-tab" data-category="tones">Tones</button>
+          <button class="examples-tab" data-category="sandhi">Sandhi</button>
+          <button class="examples-tab" data-category="zh-sh">zh/ch/sh</button>
+          <button class="examples-tab" data-category="tricky">Tricky</button>
+          <button class="examples-tab" data-category="real">Real</button>
+        </div>
+        <div class="examples-list" data-category="easy">
+          <button class="example-btn" data-sentence="你好朋友">你好朋友</button>
+          <button class="example-btn" data-sentence="你好吃饭了吗">你好吃饭了吗</button>
+          <button class="example-btn" data-sentence="今天天气很好">今天天气很好</button>
+          <button class="example-btn" data-sentence="谢谢你的帮助">谢谢你的帮助</button>
+        </div>
+        <div class="examples-list" data-category="tones" style="display: none;">
+          <button class="example-btn" data-sentence="妈妈骂马吗">妈妈骂马吗</button>
+          <button class="example-btn" data-sentence="我买米">我买米</button>
+          <button class="example-btn" data-sentence="他很忙">他很忙</button>
+          <button class="example-btn" data-sentence="今天很热">今天很热</button>
+        </div>
+        <div class="examples-list" data-category="sandhi" style="display: none;">
+          <button class="example-btn" data-sentence="你好">你好</button>
+          <button class="example-btn" data-sentence="可以">可以</button>
+          <button class="example-btn" data-sentence="一个">一个</button>
+          <button class="example-btn" data-sentence="一起">一起</button>
+          <button class="example-btn" data-sentence="不是">不是</button>
+          <button class="example-btn" data-sentence="不对">不对</button>
+        </div>
+        <div class="examples-list" data-category="zh-sh" style="display: none;">
+          <button class="example-btn" data-sentence="四是四十是十">四是四十是十</button>
+          <button class="example-btn" data-sentence="老师喜欢吃水果">老师喜欢吃水果</button>
+          <button class="example-btn" data-sentence="这是我的手机">这是我的手机</button>
+        </div>
+        <div class="examples-list" data-category="tricky" style="display: none;">
+          <button class="example-btn" data-sentence="我想学中文">我想学中文</button>
+          <button class="example-btn" data-sentence="请你帮我一下">请你帮我一下</button>
+          <button class="example-btn" data-sentence="女朋友很漂亮">女朋友很漂亮</button>
+          <button class="example-btn" data-sentence="绿色的鱼">绿色的鱼</button>
+        </div>
+        <div class="examples-list" data-category="real" style="display: none;">
+          <button class="example-btn" data-sentence="他是我的朋友">他是我的朋友</button>
+          <button class="example-btn" data-sentence="我正在学习中文">我正在学习中文</button>
+          <button class="example-btn" data-sentence="这个问题有点难">这个问题有点难</button>
+          <button class="example-btn" data-sentence="明天我们一起吃饭">明天我们一起吃饭</button>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <a href="https://x.com/SimEdw" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          Follow for updates
+        </a>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.23.2/dist/ort.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
+    <script src="audio-processor.js"></script>
+    <script src="pinyin.js"></script>
+    <script src="ctc.js"></script>
+    <script src="scoring.js"></script>
+    <script>
+      // Pinyin tone number to diacritic conversion
+      const toneMarks = {
+        a: ['ā', 'á', 'ǎ', 'à', 'a'],
+        e: ['ē', 'é', 'ě', 'è', 'e'],
+        i: ['ī', 'í', 'ǐ', 'ì', 'i'],
+        o: ['ō', 'ó', 'ǒ', 'ò', 'o'],
+        u: ['ū', 'ú', 'ǔ', 'ù', 'u'],
+        ü: ['ǖ', 'ǘ', 'ǚ', 'ǜ', 'ü'],
+        v: ['ǖ', 'ǘ', 'ǚ', 'ǜ', 'ü']  // v is often used for ü
+      };
+
+      function pinyinToMarks(pinyin) {
+        if (!pinyin) return pinyin;
+        
+        // Extract tone number (1-5) from end, default to 5 (neutral)
+        const match = pinyin.match(/^([a-züv]+)([1-5])?$/i);
+        if (!match) return pinyin;
+        
+        let syllable = match[1].toLowerCase();
+        const tone = match[2] ? parseInt(match[2]) : 5;
+        const toneIndex = tone - 1;
+        
+        // Replace v with ü for display
+        syllable = syllable.replace(/v/g, 'ü');
+        
+        // Find which vowel gets the tone mark
+        // Rule: a/e always take it; in 'ou' the 'o' takes it; otherwise last vowel
+        let vowelIndex = -1;
+        const vowels = 'aeiouü';
+        
+        if (syllable.includes('a')) {
+          vowelIndex = syllable.indexOf('a');
+        } else if (syllable.includes('e')) {
+          vowelIndex = syllable.indexOf('e');
+        } else if (syllable.includes('ou')) {
+          vowelIndex = syllable.indexOf('o');
+        } else if (syllable.includes('iu')) {
+          vowelIndex = syllable.indexOf('u'); // mark second vowel in iu
+        } else if (syllable.includes('ui')) {
+          vowelIndex = syllable.indexOf('i'); // mark second vowel in ui
+        } else {
+          for (let i = syllable.length - 1; i >= 0; i--) {
+            if (vowels.includes(syllable[i])) {
+              vowelIndex = i;
+              break;
+            }
+          }
+        }
+        
+        if (vowelIndex === -1) return syllable;
+        
+        const vowel = syllable[vowelIndex];
+        const marked = toneMarks[vowel] ? toneMarks[vowel][toneIndex] : vowel;
+        
+        return syllable.slice(0, vowelIndex) + marked + syllable.slice(vowelIndex + 1);
+      }
+
+      // App State
+      const state = {
+        modelReady: false,
+        recording: false,
+        processing: false,
+        onnxSession: null,
+        vocab: null,
+        tokenToId: null,
+        mediaRecorder: null,
+        chunks: [],
+        lastAudioBlob: null,
+        audioElement: null,
+        // Waveform visualization
+        audioContext: null,
+        analyser: null,
+        animationId: null,
+        // Pinyin display
+        showPinyin: localStorage.getItem('ear-show-pinyin') === 'true',
+        currentPairs: []  // Store current char/pinyin pairs for re-rendering
+      };
+
+      // DOM Elements
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      const sentenceInput = document.getElementById('sentenceInput');
+      const charactersEl = document.getElementById('characters');
+      const speakBtn = document.getElementById('speakBtn');
+      const speakLabel = document.getElementById('speakLabel');
+      const micIcon = document.getElementById('micIcon');
+      const stopIcon = document.getElementById('stopIcon');
+      const spinnerIcon = document.getElementById('spinnerIcon');
+      const playbackBtn = document.getElementById('playbackBtn');
+      const waveformRing = document.getElementById('waveformRing');
+
+      // Waveform visualization setup
+      const NUM_BARS = 32;
+      const waveformBars = [];
+      
+      function initWaveformBars() {
+        const radius = 40; // Distance from center to bar base
+        for (let i = 0; i < NUM_BARS; i++) {
+          const bar = document.createElement('div');
+          bar.className = 'waveform-bar';
+          const angle = (i / NUM_BARS) * 2 * Math.PI - Math.PI / 2;
+          const x = 50 + radius * Math.cos(angle);
+          const y = 50 + radius * Math.sin(angle);
+          bar.style.left = `${x}px`;
+          bar.style.top = `${y}px`;
+          bar.style.height = '3px';
+          bar.style.transform = `translate(-50%, -100%) rotate(${angle + Math.PI / 2}rad)`;
+          waveformRing.appendChild(bar);
+          waveformBars.push(bar);
+        }
+      }
+      
+      initWaveformBars();
+
+      // Initialize
+      async function init() {
+        const loadingText = document.getElementById('loadingText');
+        const loadingProgress = document.getElementById('loadingProgress');
+        const loadingProgressBar = document.getElementById('loadingProgressBar');
+        const loadingSize = document.getElementById('loadingSize');
+
+        try {
+          // Load vocab
+          loadingText.textContent = 'Loading vocabulary...';
+          const vocabResp = await fetch('vocab.json');
+          state.vocab = await vocabResp.json();
+          state.tokenToId = {};
+          for (let i = 0; i < state.vocab.length; i++) {
+            state.tokenToId[state.vocab[i]] = i;
+          }
+
+          // Download ONNX model with progress
+          loadingText.textContent = 'Downloading model...';
+          loadingProgress.style.display = 'block';
+          
+          const modelResp = await fetch('tiny_int8.onnx');
+          const contentLength = modelResp.headers.get('Content-Length');
+          const totalBytes = contentLength ? parseInt(contentLength, 10) : 0;
+          
+          if (totalBytes > 0) {
+            loadingSize.textContent = `0 / ${(totalBytes / 1024 / 1024).toFixed(1)} MB`;
+          }
+
+          // Read the response as a stream to track progress
+          const reader = modelResp.body.getReader();
+          const chunks = [];
+          let receivedBytes = 0;
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            
+            chunks.push(value);
+            receivedBytes += value.length;
+            
+            if (totalBytes > 0) {
+              const progress = (receivedBytes / totalBytes) * 100;
+              loadingProgressBar.style.width = `${progress}%`;
+              loadingSize.textContent = `${(receivedBytes / 1024 / 1024).toFixed(1)} / ${(totalBytes / 1024 / 1024).toFixed(1)} MB`;
+            }
+          }
+
+          // Combine chunks into a single ArrayBuffer
+          const modelData = new Uint8Array(receivedBytes);
+          let offset = 0;
+          for (const chunk of chunks) {
+            modelData.set(chunk, offset);
+            offset += chunk.length;
+          }
+
+          // Load ONNX model from ArrayBuffer
+          loadingText.textContent = 'Initializing model...';
+          loadingProgressBar.style.width = '100%';
+          
+          ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.23.2/dist/';
+          ort.env.wasm.numThreads = 1;
+          
+          state.onnxSession = await ort.InferenceSession.create(modelData.buffer, {
+            executionProviders: ['wasm'],
+            graphOptimizationLevel: 'basic'
+          });
+
+          state.modelReady = true;
+          loadingOverlay.classList.add('hidden');
+          speakBtn.disabled = false;
+
+        } catch (error) {
+          console.error('Init error:', error);
+          loadingText.textContent = 'Failed to load model';
+          loadingProgress.style.display = 'none';
+          loadingSize.textContent = error.message;
+        }
+      }
+
+      // Update button state
+      function updateButton() {
+        micIcon.style.display = state.recording || state.processing ? 'none' : 'block';
+        stopIcon.style.display = state.recording ? 'block' : 'none';
+        spinnerIcon.style.display = state.processing ? 'block' : 'none';
+
+        speakBtn.classList.toggle('recording', state.recording);
+        speakBtn.classList.toggle('processing', state.processing);
+
+        if (state.processing) {
+          speakLabel.textContent = 'Analyzing...';
+        } else if (state.recording) {
+          speakLabel.textContent = 'Tap to stop';
+        } else {
+          speakLabel.textContent = 'Tap to speak';
+        }
+      }
+
+      // Waveform animation
+      function animateWaveform() {
+        if (!state.analyser || !state.recording) return;
+        
+        const dataArray = new Uint8Array(state.analyser.frequencyBinCount);
+        state.analyser.getByteFrequencyData(dataArray);
+        
+        // Focus on voice frequencies (roughly 85-255 Hz mapped to bins)
+        // Use fewer bins for smoother look
+        const usableBins = Math.min(64, dataArray.length);
+        const step = Math.max(1, Math.floor(usableBins / NUM_BARS));
+        
+        for (let i = 0; i < NUM_BARS; i++) {
+          // Average a range of frequencies for this bar
+          let sum = 0;
+          const startBin = i * step;
+          for (let j = 0; j < step && (startBin + j) < usableBins; j++) {
+            sum += dataArray[startBin + j];
+          }
+          const avg = sum / step;
+          // Apply slight smoothing with power curve, map to 3-12px
+          const normalized = Math.pow(avg / 255, 0.8);
+          const height = 3 + normalized * 9;
+          waveformBars[i].style.height = `${height}px`;
+        }
+        
+        state.animationId = requestAnimationFrame(animateWaveform);
+      }
+      
+      function startWaveformVisualization(stream) {
+        state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const source = state.audioContext.createMediaStreamSource(stream);
+        state.analyser = state.audioContext.createAnalyser();
+        state.analyser.fftSize = 256;
+        source.connect(state.analyser);
+        
+        waveformRing.classList.add('active');
+        animateWaveform();
+      }
+      
+      function stopWaveformVisualization() {
+        if (state.animationId) {
+          cancelAnimationFrame(state.animationId);
+          state.animationId = null;
+        }
+        if (state.audioContext) {
+          state.audioContext.close();
+          state.audioContext = null;
+          state.analyser = null;
+        }
+        waveformRing.classList.remove('active');
+        // Reset bar heights
+        waveformBars.forEach(bar => {
+          bar.style.height = '3px';
+        });
+      }
+
+      // Start recording
+      async function startRecording() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          state.mediaRecorder = new MediaRecorder(stream);
+          state.chunks = [];
+
+          state.mediaRecorder.ondataavailable = (e) => {
+            if (e.data.size > 0) state.chunks.push(e.data);
+          };
+
+          state.mediaRecorder.onstop = async () => {
+            const blob = new Blob(state.chunks, { type: 'audio/webm' });
+            state.lastAudioBlob = blob;
+            playbackBtn.classList.add('visible');
+            await processAudio(blob);
+          };
+
+          state.mediaRecorder.start();
+          state.recording = true;
+          updateButton();
+          
+          // Start waveform visualization
+          startWaveformVisualization(stream);
+          
+          // Clear previous results and restore sentence visibility
+          charactersEl.innerHTML = '';
+          document.querySelector('.sentence-section').classList.remove('hidden');
+          document.getElementById('shortWarning').classList.remove('visible');
+
+        } catch (err) {
+          console.error('Mic error:', err);
+          speakLabel.textContent = 'Mic access denied';
+        }
+      }
+
+      // Stop recording
+      function stopRecording() {
+        if (state.mediaRecorder && state.recording) {
+          state.mediaRecorder.stop();
+          state.mediaRecorder.stream.getTracks().forEach(t => t.stop());
+          state.recording = false;
+          state.processing = true;
+          updateButton();
+          stopWaveformVisualization();
+        }
+      }
+
+      // Process audio
+      async function processAudio(blob) {
+        try {
+          const sentence = sentenceInput.value.trim();
+          if (!sentence) {
+            state.processing = false;
+            updateButton();
+            return;
+          }
+
+          // Get pinyin tokens
+          const pairs = PinyinUtils.charsAndPinyin(sentence);
+          if (pairs.length === 0) {
+            state.processing = false;
+            updateButton();
+            return;
+          }
+
+          // Store pairs for potential re-render (e.g., pinyin toggle)
+          state.currentPairs = pairs;
+          
+          // Show placeholder characters with pinyin
+          showCharacters(pairs.map(p => ({ char: p[0], pinyin: p[1], status: 'pending' })));
+
+          const arrayBuffer = await blob.arrayBuffer();
+          const { features, length: T, hopLengthMs } = await AudioProcessor.processAudio(arrayBuffer, 5.0);
+
+          if (T === 0) {
+            state.processing = false;
+            updateButton();
+            return;
+          }
+
+          const chars = pairs.map(p => p[0]);
+          const targetTokens = pairs.map(p => p[1]);
+          const targetIds = targetTokens.map(tok => 
+            state.tokenToId[tok] !== undefined ? state.tokenToId[tok] : (state.tokenToId['<unk>'] || 1)
+          );
+
+          // Run ONNX inference
+          const featsTensor = new ort.Tensor('float32', features, [1, T, 80]);
+          const featLensTensor = new ort.Tensor('int64', BigInt64Array.from([BigInt(T)]), [1]);
+          const outputs = await state.onnxSession.run({ feats: featsTensor, feat_lens: featLensTensor });
+
+          const logits = outputs.logits.data;
+          const outShape = outputs.logits.dims;
+          const outT = outShape[1];
+          const vocabSize = outShape[2];
+
+          const logProbs = CTCUtils.logSoftmax(logits, outT, vocabSize);
+          const labelAtT = CTCUtils.forcedAlignLabels(logProbs, outT, vocabSize, targetIds);
+
+          // Get token frames
+          const nTokens = targetIds.length;
+          const tokenTs = Array.from({ length: nTokens }, () => []);
+          for (let t = 0; t < outT; t++) {
+            const lab = labelAtT[t];
+            if (lab >= 0 && lab < nTokens) {
+              tokenTs[lab].push(t);
+            }
+          }
+
+          const spansByLabel = tokenTs.map(ts => 
+            ts.length > 0 ? [ts[0], ts[ts.length - 1]] : [null, null]
+          );
+
+          const emitFrames = tokenTs.map(ts => 
+            ts.length === 0 ? null : ts[Math.floor(ts.length / 2)]
+          );
+
+          const spans = CTCUtils.spansFromEmits(emitFrames, outT);
+
+          // Evaluate each syllable
+          const results = [];
+          for (let idx = 0; idx < nTokens; idx++) {
+            const [scoreStart, scoreEnd] = spansByLabel[idx];
+            
+            let tokenFrames = [];
+            if (scoreStart !== null && scoreEnd !== null) {
+              const w = 3;
+              const center = Math.floor((scoreStart + scoreEnd) / 2);
+              for (let t = Math.max(0, center - w); t <= Math.min(outT - 1, center + w); t++) {
+                tokenFrames.push(t);
+              }
+            } else if (emitFrames[idx] !== null) {
+              const w = 3;
+              const emit = emitFrames[idx];
+              for (let t = Math.max(0, emit - w); t <= Math.min(outT - 1, emit + w); t++) {
+                tokenFrames.push(t);
+              }
+            }
+
+            let spanLogProbs;
+            if (tokenFrames.length > 0) {
+              spanLogProbs = new Float32Array(tokenFrames.length * vocabSize);
+              for (let i = 0; i < tokenFrames.length; i++) {
+                const t = tokenFrames[i];
+                for (let v = 0; v < vocabSize; v++) {
+                  spanLogProbs[i * vocabSize + v] = logProbs[t * vocabSize + v];
+                }
+              }
+            } else {
+              spanLogProbs = logProbs;
+              tokenFrames = Array.from({ length: outT }, (_, i) => i);
+            }
+
+            const evalResult = ScoringUtils.evaluateSyllable(
+              spanLogProbs, tokenFrames.length, vocabSize,
+              targetTokens[idx], targetIds[idx], state.vocab, 3
+            );
+
+            results.push({
+              char: chars[idx],
+              ...evalResult
+            });
+          }
+
+          // Apply sandhi tolerance (post-processing layer)
+          // This marks predictions as correct when they match expected sandhi patterns
+          const sandhiResults = ScoringUtils.applySandhiTolerance(results, targetTokens);
+          for (let i = 0; i < results.length; i++) {
+            results[i] = { ...results[i], ...sandhiResults[i] };
+          }
+
+          // Apply leniency for first syllable in short utterances
+          // CTC alignment is known to be unstable for word-initial positions with little context
+          if (nTokens <= 2 && results.length > 0) {
+            const first = results[0];
+            if (first.status === 'wrong' && first.pTarget >= 0.15) {
+              // If there's some evidence for the target, be lenient
+              // Check if confusion is vowel/nasal-close (common false positives)
+              const confusions = first.topConfusions || [];
+              const hasCloseConfusion = confusions.some(c => {
+                const baseT = ScoringUtils.stripTone(first.target);
+                const baseC = ScoringUtils.stripTone(c);
+                return ScoringUtils.isMinimalPair(baseT, baseC) || 
+                       ScoringUtils.toneClose(ScoringUtils.toneId(first.target), ScoringUtils.toneId(c));
+              });
+              
+              if (hasCloseConfusion || first.pTarget >= 0.3) {
+                results[0].status = 'close';
+                results[0].shortUtteranceLeniency = true;
+              }
+            }
+          }
+
+          // Animate results
+          animateResults(results);
+
+        } catch (error) {
+          console.error('Process error:', error);
+        } finally {
+          state.processing = false;
+          updateButton();
+        }
+      }
+
+      // Show characters (initial or pending state)
+      // chars: array of { char, pinyin? } or [char, pinyin] tuples
+      function showCharacters(chars) {
+        charactersEl.innerHTML = '';
+        chars.forEach((c, i) => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'char-wrapper';
+          
+          // Support both object { char, pinyin } and array [char, pinyin] formats
+          const char = c.char || c[0];
+          const pinyin = c.pinyin || c[1] || '';
+          
+          // Use ruby annotation for pinyin
+          const charContent = pinyin 
+            ? `<ruby><rb>${char}</rb><rt>${pinyinToMarks(pinyin)}</rt></ruby>`
+            : char;
+          
+          wrapper.innerHTML = `
+            <div class="char">${charContent}</div>
+            <div class="char-feedback"></div>
+          `;
+          charactersEl.appendChild(wrapper);
+        });
+      }
+
+      // Animate results with delay
+      function animateResults(results) {
+        // Hide the sentence input to focus on results
+        document.querySelector('.sentence-section').classList.add('hidden');
+        
+        // Show warning for short sentences
+        const shortWarning = document.getElementById('shortWarning');
+        if (results.length <= 2) {
+          shortWarning.classList.add('visible');
+        } else {
+          shortWarning.classList.remove('visible');
+        }
+        
+        const wrappers = charactersEl.querySelectorAll('.char-wrapper');
+        
+        results.forEach((result, i) => {
+          setTimeout(() => {
+            const wrapper = wrappers[i];
+            const charEl = wrapper.querySelector('.char');
+            const feedbackEl = wrapper.querySelector('.char-feedback');
+
+            // Determine if this should show as correct (checkmark)
+            const isCorrectForUI = result.status === 'correct' || result.top1 === result.target;
+            
+            // Determine status class for UI - must match the feedback shown
+            // If top1 matches target but status is 'wrong' (low confidence), use 'close' instead
+            let statusForUI = result.status;
+            if (isCorrectForUI && statusForUI === 'wrong') {
+              statusForUI = 'close';  // Low confidence but correct prediction
+            }
+            
+            // Add status class
+            charEl.classList.add(statusForUI);
+
+            // Add feedback
+            if (isCorrectForUI) {
+              if (result.sandhi && result.sandhiNote === 'sandhi') {
+                // Natural sandhi - show checkmark with heard tone
+                feedbackEl.innerHTML = `<span class="feedback-correct">✓</span><span class="feedback-sandhi">${pinyinToMarks(result.originalPrediction)}</span>`;
+              } else if (result.sandhi && result.sandhiNote === 'careful') {
+                // Careful speech in sandhi context - just show checkmark
+                feedbackEl.innerHTML = '<span class="feedback-correct">✓</span>';
+              } else {
+                feedbackEl.innerHTML = '<span class="feedback-correct">✓</span>';
+              }
+            } else {
+              feedbackEl.innerHTML = `
+                <span class="feedback-heard">${pinyinToMarks(result.top1)}</span>
+                <span class="feedback-target">→ ${pinyinToMarks(result.target)}</span>
+              `;
+            }
+
+            // Trigger animation
+            wrapper.classList.add('revealed');
+
+          }, i * 150); // 150ms delay between each character
+        });
+      }
+
+      // Button click handler
+      speakBtn.addEventListener('click', () => {
+        if (state.processing) return;
+        
+        if (state.recording) {
+          stopRecording();
+        } else {
+          startRecording();
+        }
+      });
+
+      // Playback button handler
+      playbackBtn.addEventListener('click', () => {
+        if (!state.lastAudioBlob) return;
+        
+        // Stop any existing playback
+        if (state.audioElement) {
+          state.audioElement.pause();
+          state.audioElement = null;
+        }
+        
+        // Create new audio element and play
+        state.audioElement = new Audio(URL.createObjectURL(state.lastAudioBlob));
+        state.audioElement.play();
+      });
+
+      // Edit icon click handler
+      document.getElementById('editIcon').addEventListener('click', () => {
+        sentenceInput.focus();
+        // Move cursor to end of text
+        sentenceInput.setSelectionRange(sentenceInput.value.length, sentenceInput.value.length);
+      });
+
+      // Edit hint click handler
+      document.getElementById('editHint').addEventListener('click', () => {
+        const sentenceSection = document.querySelector('.sentence-section');
+        sentenceSection.classList.remove('hidden');
+        sentenceInput.focus();
+        sentenceInput.setSelectionRange(sentenceInput.value.length, sentenceInput.value.length);
+      });
+
+      // Pinyin toggle handler
+      const pinyinToggle = document.getElementById('pinyinToggle');
+      const inputPinyinEl = document.getElementById('inputPinyin');
+      
+      function updateInputPinyin() {
+        const sentence = sentenceInput.value.trim();
+        if (!sentence) {
+          inputPinyinEl.innerHTML = '';
+          return;
+        }
+        
+        const pairs = PinyinUtils.charsAndPinyin(sentence);
+        inputPinyinEl.innerHTML = pairs.map(p => 
+          `<span>${pinyinToMarks(p[1])}</span>`
+        ).join('');
+      }
+      
+      function updatePinyinDisplay() {
+        const charactersSection = document.querySelector('.characters-section');
+        const sentenceSection = document.querySelector('.sentence-section');
+        
+        if (state.showPinyin) {
+          charactersSection.classList.add('show-pinyin');
+          sentenceSection.classList.add('show-pinyin');
+          pinyinToggle.classList.add('active');
+          updateInputPinyin();
+        } else {
+          charactersSection.classList.remove('show-pinyin');
+          sentenceSection.classList.remove('show-pinyin');
+          pinyinToggle.classList.remove('active');
+        }
+      }
+      
+      // Update input pinyin when sentence changes
+      sentenceInput.addEventListener('input', () => {
+        if (state.showPinyin) {
+          updateInputPinyin();
+        }
+      });
+      
+      // Initialize pinyin toggle state
+      updatePinyinDisplay();
+      
+      pinyinToggle.addEventListener('click', () => {
+        state.showPinyin = !state.showPinyin;
+        localStorage.setItem('ear-show-pinyin', state.showPinyin);
+        updatePinyinDisplay();
+      });
+
+      // Example category tab handlers
+      document.querySelectorAll('.examples-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Update active tab
+          document.querySelectorAll('.examples-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          
+          // Show corresponding list
+          const category = tab.dataset.category;
+          document.querySelectorAll('.examples-list').forEach(list => {
+            list.style.display = list.dataset.category === category ? 'flex' : 'none';
+          });
+        });
+      });
+
+      // Example sentence click handlers
+      document.querySelectorAll('.example-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          sentenceInput.value = btn.dataset.sentence;
+          charactersEl.innerHTML = '';
+          // Show sentence and focus
+          document.querySelector('.sentence-section').classList.remove('hidden');
+          // Update pinyin display for new sentence
+          if (state.showPinyin) {
+            updateInputPinyin();
+          }
+          sentenceInput.focus();
+          sentenceInput.blur();
+        });
+      });
+
+      // Spacebar to start/stop recording (when not in input)
+      document.addEventListener('keydown', (e) => {
+        // Ignore if typing in input field
+        if (document.activeElement === sentenceInput) return;
+        
+        // Spacebar
+        if (e.code === 'Space') {
+          e.preventDefault(); // Prevent page scroll
+          
+          if (!state.modelReady || state.processing) return;
+          
+          if (state.recording) {
+            stopRecording();
+          } else {
+            startRecording();
+          }
+        }
+      });
+
+      // Initialize on load
+      init();
+    </script>
+  </body>
+</html>
