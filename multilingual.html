@@ -1,0 +1,1648 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ear: Multilingual Extension Guide — Cantonese, Vietnamese & Thai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg: #0a0a0b;
+        --bg-subtle: #141416;
+        --card-bg: rgba(24, 24, 27, 0.65);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --text: #fafafa;
+        --text-muted: #a1a1aa;
+        --text-dim: #71717a;
+        --accent: #6366f1;
+        --accent-light: #818cf8;
+        --accent-glow: rgba(99, 102, 241, 0.25);
+        --correct: #22c55e;
+        --correct-bg: rgba(34, 197, 94, 0.12);
+        --amber: #f59e0b;
+        --amber-bg: rgba(245, 158, 11, 0.12);
+        --cyan: #06b6d4;
+        --cyan-bg: rgba(6, 182, 212, 0.12);
+        --rose: #f43f5e;
+        --rose-bg: rgba(244, 63, 94, 0.12);
+        --code-bg: #111114;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background: radial-gradient(ellipse at 50% 15%, #131322 0%, #0a0a0b 45%, #050506 100%);
+        color: var(--text);
+        min-height: 100vh;
+        line-height: 1.65;
+        padding-bottom: 80px;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: var(--accent-light);
+        text-decoration: none;
+        transition: color 0.15s ease;
+      }
+      a:hover {
+        color: #c7d2fe;
+        text-decoration: underline;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(10, 10, 11, 0.82);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--card-border);
+        padding: 14px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .nav-badge {
+        font-size: 11px;
+        font-weight: 500;
+        background: var(--accent-glow);
+        color: var(--accent-light);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        padding: 2px 8px;
+        border-radius: 9999px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 13px;
+      }
+
+      .nav-btn {
+        padding: 6px 14px;
+        border-radius: 6px;
+        background: var(--bg-subtle);
+        border: 1px solid var(--card-border);
+        color: var(--text);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+      }
+      .nav-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        text-decoration: none;
+      }
+      .nav-btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .nav-btn.primary:hover {
+        background: #4f46e5;
+      }
+
+      /* Container */
+      .container {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 40px 24px 0 24px;
+      }
+
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        margin-bottom: 56px;
+        position: relative;
+      }
+
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent-light);
+        background: var(--accent-glow);
+        border: 1px solid rgba(99, 102, 241, 0.35);
+        padding: 6px 16px;
+        border-radius: 9999px;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 {
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #ffffff 40%, #a1a1aa 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero p {
+        font-size: clamp(16px, 2vw, 19px);
+        color: var(--text-muted);
+        max-width: 760px;
+        margin: 0 auto 28px auto;
+        font-weight: 300;
+      }
+
+      .hero-stats {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .hero-stat-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 14px 22px;
+        text-align: center;
+        min-width: 150px;
+      }
+      .hero-stat-val {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .hero-stat-lbl {
+        font-size: 12px;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 4px;
+      }
+
+      /* Sections */
+      section {
+        margin-bottom: 64px;
+      }
+
+      .section-header {
+        margin-bottom: 24px;
+      }
+      .section-badge {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+        color: var(--accent-light);
+        margin-bottom: 6px;
+        display: block;
+      }
+      .section-title {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .section-desc {
+        color: var(--text-muted);
+        font-size: 15px;
+        margin-top: 6px;
+      }
+
+      /* Architecture Grid */
+      .arch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+        margin-bottom: 32px;
+      }
+
+      .arch-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      .arch-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+      }
+      .arch-card.agnostic::before {
+        background: linear-gradient(90deg, #22c55e, #06b6d4);
+      }
+      .arch-card.specific::before {
+        background: linear-gradient(90deg, #6366f1, #f43f5e);
+      }
+
+      .card-tag {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 3px 10px;
+        border-radius: 6px;
+        margin-bottom: 14px;
+      }
+      .card-tag.green {
+        background: var(--correct-bg);
+        color: var(--correct);
+      }
+      .card-tag.purple {
+        background: var(--accent-glow);
+        color: var(--accent-light);
+      }
+
+      .arch-card h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .arch-card ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .arch-card li {
+        font-size: 14px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .arch-card li strong {
+        color: var(--text);
+      }
+      .arch-card li svg {
+        flex-shrink: 0;
+        margin-top: 3px;
+      }
+
+      /* Flow diagram box */
+      .flow-box {
+        background: var(--code-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 24px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        overflow-x: auto;
+        color: #e4e4e7;
+        line-height: 1.5;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      }
+
+      /* Comparison Table */
+      .table-wrapper {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        overflow-x: auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 14px;
+      }
+
+      th {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 14px 18px;
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-dim);
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      td {
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--card-border);
+        color: var(--text-muted);
+        vertical-align: middle;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      tr:hover td {
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .lang-cell {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .lang-flag {
+        font-size: 20px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 10px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .pill.green {
+        background: var(--correct-bg);
+        color: var(--correct);
+      }
+      .pill.amber {
+        background: var(--amber-bg);
+        color: var(--amber);
+      }
+      .pill.blue {
+        background: var(--cyan-bg);
+        color: var(--cyan);
+      }
+
+      /* Language Deep Dives: Tabbed Container */
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid var(--card-border);
+        padding-bottom: 8px;
+        overflow-x: auto;
+      }
+
+      .tab-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 500;
+        padding: 10px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+      }
+      .tab-btn:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .tab-btn.active {
+        color: #fff;
+        background: var(--accent);
+        font-weight: 600;
+        box-shadow: 0 4px 12px var(--accent-glow);
+      }
+
+      .tab-pane {
+        display: none;
+        animation: fadeIn 0.3s ease;
+      }
+      .tab-pane.active {
+        display: block;
+      }
+
+      .lang-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      }
+
+      .lang-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 24px;
+        border-bottom: 1px solid var(--card-border);
+        padding-bottom: 20px;
+      }
+
+      .lang-title-group h3 {
+        font-size: 24px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .lang-title-group p {
+        color: var(--text-muted);
+        font-size: 14px;
+        margin-top: 4px;
+      }
+
+      .score-badge {
+        background: var(--correct-bg);
+        color: var(--correct);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .spec-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      .spec-box {
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        padding: 14px 16px;
+      }
+      .spec-title {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-dim);
+        margin-bottom: 4px;
+      }
+      .spec-val {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .deep-text {
+        font-size: 15px;
+        color: #d4d4d8;
+        margin-bottom: 20px;
+      }
+
+      .tone-table-mini {
+        width: 100%;
+        margin: 16px 0 24px 0;
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .tone-table-mini th {
+        padding: 8px 12px;
+        font-size: 11px;
+      }
+      .tone-table-mini td {
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+
+      /* Interactive Simulator */
+      .sim-box {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      }
+
+      .sim-controls {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .sim-lang-btn {
+        background: var(--bg-subtle);
+        border: 1px solid var(--card-border);
+        color: var(--text);
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.15s ease;
+      }
+      .sim-lang-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .sim-lang-btn.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+
+      .sim-presets {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+        font-size: 13px;
+        color: var(--text-dim);
+      }
+
+      .preset-chip {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--card-border);
+        color: var(--text-muted);
+        padding: 4px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.15s ease;
+      }
+      .preset-chip:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .sim-input-row {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      .sim-input {
+        flex: 1;
+        background: var(--code-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        padding: 12px 18px;
+        color: var(--text);
+        font-size: 18px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+      .sim-input:focus {
+        border-color: var(--accent-light);
+      }
+
+      /* Token Display */
+      .token-sequence {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      .token-card {
+        background: rgba(99, 102, 241, 0.08);
+        border: 1px solid rgba(99, 102, 241, 0.25);
+        border-radius: 8px;
+        padding: 10px 14px;
+        text-align: center;
+        min-width: 80px;
+      }
+      .token-ortho {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 2px;
+      }
+      .token-ctc {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        color: var(--accent-light);
+        font-weight: 500;
+      }
+      .token-tone-desc {
+        font-size: 10px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        letter-spacing: 0.05em;
+        margin-top: 4px;
+      }
+
+      /* Simulated CTC Trellis */
+      .trellis-container {
+        background: var(--code-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        padding: 18px;
+        overflow-x: auto;
+      }
+      .trellis-header {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-dim);
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .trellis-chart {
+        display: flex;
+        align-items: flex-end;
+        height: 120px;
+        gap: 3px;
+        padding-top: 10px;
+      }
+      .trellis-bar-col {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 4px;
+        min-width: 14px;
+      }
+      .trellis-bar {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 2px 2px 0 0;
+        transition: height 0.3s ease, background-color 0.2s ease;
+      }
+      .trellis-bar.emission {
+        background: linear-gradient(180deg, var(--accent-light), var(--accent));
+        box-shadow: 0 0 8px var(--accent-glow);
+      }
+      .trellis-bar.blank {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .trellis-time-lbl {
+        font-size: 9px;
+        color: var(--text-dim);
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      /* Code Snippet Box */
+      .code-block {
+        background: var(--code-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 20px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        line-height: 1.55;
+        overflow-x: auto;
+        color: #e2e8f0;
+        margin: 16px 0;
+      }
+      .code-comment { color: #64748b; }
+      .code-kw { color: #f43f5e; }
+      .code-fn { color: #38bdf8; }
+      .code-str { color: #a3e635; }
+      .code-num { color: #fbbf24; }
+
+      /* Footer */
+      footer {
+        margin-top: 80px;
+        text-align: center;
+        color: var(--text-dim);
+        font-size: 13px;
+        border-top: 1px solid var(--card-border);
+        padding-top: 32px;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 768px) {
+        .navbar { padding: 12px 16px; }
+        .container { padding: 24px 16px 0 16px; }
+        .lang-card { padding: 20px; }
+        .sim-input-row { flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Nav -->
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <span>Ear Multi-Lang</span>
+        <span class="nav-badge">Conformer CTC Architecture</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Interactive Mandarin Tutor
+        </a>
+        <a href="https://github.com/chid/mandarin" target="_blank" rel="noopener" class="nav-btn primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub Repo
+        </a>
+      </div>
+    </nav>
+
+    <main class="container">
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-tag">Architectural Feasibility & Specification</div>
+        <h1>Porting Ear to Other Languages</h1>
+        <p>A technical blueprint for extending on-device Conformer CTC forced-alignment pronunciation tutors to <strong>Cantonese</strong>, <strong>Vietnamese</strong>, <strong>Thai</strong>, and beyond.</p>
+        
+        <div class="hero-stats">
+          <div class="hero-stat-card">
+            <div class="hero-stat-val">9M INT8</div>
+            <div class="hero-stat-lbl">Model Footprint (~11 MB)</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-val">100%</div>
+            <div class="hero-stat-lbl">Acoustic Pipeline Reusable</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-val">40 ms</div>
+            <div class="hero-stat-lbl">CTC Frame Resolution</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-val">&lt; 300 hrs</div>
+            <div class="hero-stat-lbl">Required Speech Data</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 1: Invariant vs Specific Architecture -->
+      <section>
+        <div class="section-header">
+          <span class="section-badge">Core Engine</span>
+          <h2 class="section-title">Acoustic Invariance vs. Phonological Adapters</h2>
+          <p class="section-desc">Why the core inference engine requires zero modifications when switching languages.</p>
+        </div>
+
+        <div class="arch-grid">
+          <div class="arch-card agnostic">
+            <span class="card-tag green">100% Language-Agnostic Core</span>
+            <h3>The Audio & CTC Engine</h3>
+            <ul>
+              <li>
+                <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Audio Processing:</strong> 16kHz PCM &rarr; 80-dim log-mel filterbank + per-utterance CMVN. Human speech acoustics are universal.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>9M Conformer CTC:</strong> INT8 quantized ONNX encoder runs entirely client-side via WebAssembly SIMD.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Viterbi Trellis Alignment:</strong> Dynamic programming alignment operates strictly on frame token probabilities.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Blank-Silence Decoupling:</strong> Filters frames where P(&lt;blank&gt;) &gt; 0.7 to prevent pauses from penalizing scores.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="arch-card specific">
+            <span class="card-tag purple">Language-Specific Adapter Plugs</span>
+            <h3>What Changes Per Language</h3>
+            <ul>
+              <li>
+                <svg width="16" height="16" fill="none" stroke="#818cf8" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Tokenization Strategy:</strong> Syllable+Tone (Tonal languages) vs. Morae (Japanese) vs. Phonemes/GOP (Stress-timed European languages).</span>
+              </li>
+              <li>
+                <svg width="16" height="16" fill="none" stroke="#818cf8" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>G2P / Orthography Front-End:</strong> Pinyin for Mandarin, Jyutping for Cantonese, Space-syllables for Viet, Trie segmenter for Thai.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" fill="none" stroke="#818cf8" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Phonological Tolerance Rules:</strong> Sandhi rules (3-3 tone sandhi), dialectal merges (Hanoi vs Saigon), or liaisons.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" fill="none" stroke="#818cf8" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Training Corpus:</strong> ~200–300 hours of paired transcribed speech to train the CTC output layer weights.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flow-box">
+Audio Input (16kHz PCM)
+   │
+   ▼
+[Language-Agnostic] ───► STFT (n_fft=400, hop=160) ──► 80-channel Log Mel Filterbank + CMVN
+                                                               │
+                                                               ▼
+[Language-Agnostic] ───► 9M Conformer CTC Encoder (INT8 WASM) ──► Log-Softmax Frame Probabilities (T x V)
+                                                               │
+Target Text ──► [Language Front-End: G2P / Segmenter] ──► Target Tokens
+                                                               │
+                                                               ▼
+[Language-Agnostic] ───► Viterbi Dynamic Programming Alignment ──► Non-Blank Silence Masking (thr=0.7)
+                                                               │
+                                                               ▼
+[Language Post-Process] ──► Phonological Sandhi / Dialect Rules ──► Syllable / Character Confidence Scores
+        </div>
+      </section>
+
+      <!-- Section 2: Comprehensive Feasibility Matrix -->
+      <section>
+        <div class="section-header">
+          <span class="section-badge">Comparative Analysis</span>
+          <h2 class="section-title">Cross-Language Feasibility Matrix</h2>
+          <p class="section-desc">Assessment across tonal, pitch-accent, and stress-timed language families.</p>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Language</th>
+                <th>Phonological Category</th>
+                <th>Token Unit</th>
+                <th>Vocabulary Size</th>
+                <th>G2P Complexity</th>
+                <th>Open Speech Corpora</th>
+                <th>Drop-in Feasibility</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="lang-cell">
+                    <span class="lang-flag">🇨🇳</span>
+                    <span>Mandarin (Current)</span>
+                  </div>
+                </td>
+                <td>Lexical Tones (4 + neutral)</td>
+                <td>Pinyin + Tone</td>
+                <td>1,254</td>
+                <td>Low (pinyin-pro)</td>
+                <td>AISHELL-1, Primewords</td>
+                <td><span class="pill green">10 / 10 (Production)</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="lang-cell">
+                    <span class="lang-flag">🇭🇰</span>
+                    <span>Cantonese</span>
+                  </div>
+                </td>
+                <td>Lexical Tones (6 tones + entering)</td>
+                <td>Jyutping + Tone (1–6)</td>
+                <td>~1,900 – 2,200</td>
+                <td>Low (to-jyutping JS)</td>
+                <td>Common Voice, AISHELL-4, MDCC</td>
+                <td><span class="pill green">10 / 10 (Direct Fit)</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="lang-cell">
+                    <span class="lang-flag">🇻🇳</span>
+                    <span>Vietnamese</span>
+                  </div>
+                </td>
+                <td>Lexical Tones (6 tones, glottalized)</td>
+                <td>Syllable + Diacritics</td>
+                <td>~4,500 – 6,000</td>
+                <td>Minimal (Space-separated words)</td>
+                <td>VIVOS (15h), Common Voice (100h+)</td>
+                <td><span class="pill green">10 / 10 (Direct Fit)</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="lang-cell">
+                    <span class="lang-flag">🇹🇭</span>
+                    <span>Thai</span>
+                  </div>
+                </td>
+                <td>Lexical Tones (5 tones + length)</td>
+                <td>Syllable + Tone (1–5)</td>
+                <td>~3,000 – 4,000</td>
+                <td>Medium (No spaces; needs Trie/Regex)</td>
+                <td>Common Voice, AI4Thai, LOTUS</td>
+                <td><span class="pill green">8.5 / 10 (High)</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="lang-cell">
+                    <span class="lang-flag">🇯🇵</span>
+                    <span>Japanese</span>
+                  </div>
+                </td>
+                <td>Pitch Accent (Mora-timed)</td>
+                <td>Mora (Kana) ± High/Low</td>
+                <td>~120 – 250</td>
+                <td>Low (Kuromoji / MeCab)</td>
+                <td>CSJ, ReazonSpeech (35,000h)</td>
+                <td><span class="pill blue">9.0 / 10 (Very High)</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="lang-cell">
+                    <span class="lang-flag">🇪🇸</span>
+                    <span>Spanish</span>
+                  </div>
+                </td>
+                <td>Stress-timed (Non-tonal)</td>
+                <td>Syllable or Phoneme + Stress</td>
+                <td>~800 – 1,200</td>
+                <td>Very Low (Transparent orthography)</td>
+                <td>Common Voice, Multilingual LibriSpeech</td>
+                <td><span class="pill blue">8.5 / 10 (High)</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="lang-cell">
+                    <span class="lang-flag">🇬🇧</span>
+                    <span>English</span>
+                  </div>
+                </td>
+                <td>Stress-timed (Complex clusters)</td>
+                <td>Phoneme + Stress (ARPAbet)</td>
+                <td>~70 – 120 phonemes</td>
+                <td>Medium (CMUDict lookup)</td>
+                <td>LibriSpeech (1,000h), TED-LIUM</td>
+                <td><span class="pill amber">7.0 / 10 (Phoneme Mode)</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 3: Deep Dives for Cantonese, Vietnamese & Thai -->
+      <section>
+        <div class="section-header">
+          <span class="section-badge">Deep-Dive Implementation</span>
+          <h2 class="section-title">Focus: Cantonese, Vietnamese, and Thai</h2>
+          <p class="section-desc">Phonological mappings, vocabulary tokenization formulas, and concrete open dataset recipes.</p>
+        </div>
+
+        <!-- Language Tabs -->
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab('cantonese')">
+            <span>🇭🇰</span> Cantonese (粵語 / 廣東話)
+          </button>
+          <button class="tab-btn" onclick="switchTab('vietnamese')">
+            <span>🇻🇳</span> Vietnamese (Tiếng Việt)
+          </button>
+          <button class="tab-btn" onclick="switchTab('thai')">
+            <span>🇹🇭</span> Thai (ภาษาไทย)
+          </button>
+        </div>
+
+        <!-- Cantonese Pane -->
+        <div id="tab-cantonese" class="tab-pane active">
+          <div class="lang-card">
+            <div class="lang-header">
+              <div class="lang-title-group">
+                <h3>🇭🇰 Cantonese (粵語 / Jyutping)</h3>
+                <p>The closest sibling to the Mandarin Ear architecture: closed syllable inventory with 6 distinct tone levels.</p>
+              </div>
+              <div class="score-badge">Drop-in Rating: 10 / 10</div>
+            </div>
+
+            <div class="spec-grid">
+              <div class="spec-box">
+                <div class="spec-title">Tonal System</div>
+                <div class="spec-val">6 Pitch Contours (1–6) + Entering Tones</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Vocabulary Size</div>
+                <div class="spec-val">~1,900 – 2,200 unique tokens</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Standard Romanization</div>
+                <div class="spec-val">LSHK Jyutping (e.g. <code>sik6</code>, <code>faan6</code>)</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Browser Front-End</div>
+                <div class="spec-val"><code>to-jyutping</code> JS (380 KB bundle)</div>
+              </div>
+            </div>
+
+            <p class="deep-text">
+              Cantonese syllable structure is rigorously constrained: <strong>Initial Consonant (19 options) + Nucleus Vowel/Diphthong + Coda (Nasal: -m, -n, -ng or Stop: -p, -t, -k) + Tone (1–6)</strong>. Syllabic nasals (<code>m4</code>, <code>ng5</code>) also exist. Because there are roughly 630 base syllables, the total combinatorial space multiplied across tones is under 2,200 tokens.
+            </p>
+
+            <table class="tone-table-mini">
+              <thead>
+                <tr>
+                  <th>Tone #</th>
+                  <th>Tone Name (聲調)</th>
+                  <th>Chao Pitch Pitch Contour</th>
+                  <th>Description</th>
+                  <th>Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>陰平 (Jampik)</td><td>55 / 53</td><td>High level / high falling</td><td>詩 (si1) - poem</td></tr>
+                <tr><td>2</td><td>陰上 (Jamsoeng)</td><td>35</td><td>High rising</td><td>史 (si2) - history</td></tr>
+                <tr><td>3</td><td>陰去 (Jamheoi)</td><td>33</td><td>Mid level</td><td>試 (si3) - try</td></tr>
+                <tr><td>4</td><td>陽平 (Joengpik)</td><td>21 / 11</td><td>Low falling</td><td>時 (si4) - time</td></tr>
+                <tr><td>5</td><td>陽上 (Joengsoeng)</td><td>23</td><td>Low rising</td><td>市 (si5) - market</td></tr>
+                <tr><td>6</td><td>陽去 (Joengheoi)</td><td>22</td><td>Low level</td><td>是 (si6) - yes/be</td></tr>
+              </tbody>
+            </table>
+
+            <h4 style="font-size: 15px; margin-bottom: 8px;">Key Differences from Mandarin</h4>
+            <ul style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 16px;">
+              <li><strong>Entering Tones (入聲):</strong> Codas ending in <code>-p</code>, <code>-t</code>, <code>-k</code> are checked (unreleased glottal stops). In Jyutping, they are mapped to tones 7, 8, 9 phonetically, which correspond directly to pitch contours 1, 3, 6 (e.g. <code>sik6</code> 食 is tone 6 contour).</li>
+              <li><strong>Much simpler Sandhi:</strong> Cantonese does <em>not</em> have compulsory phonological sandhi like Mandarin's 3-3 sandhi. Tone changes (變音) are mostly morphological (nouns turning into high-rising tone 2, e.g. 糖 <code>tong4</code> &rarr; <code>tong2</code> candy). The scoring tolerance only needs to permit alternative dictionary readings.</li>
+            </ul>
+
+            <h4 style="font-size: 15px; margin-bottom: 8px;">Front-End JS Implementation</h4>
+            <div class="code-block"><span class="code-comment">// In-browser Cantonese conversion using to-jyutping</span>
+<span class="code-kw">import</span> { getJyutpingList } <span class="code-kw">from</span> <span class="code-str">'to-jyutping'</span>;
+
+<span class="code-kw">function</span> <span class="code-fn">sentenceToTokens</span>(cantoneseText) {
+  <span class="code-kw">const</span> raw = <span class="code-fn">getJyutpingList</span>(cantoneseText);
+  <span class="code-comment">// Output: [['食', 'sik6'], ['咗', 'zo2'], ['飯', 'faan6'], ['未', 'mei6']]</span>
+  <span class="code-kw">return</span> raw.<span class="code-fn">map</span>(([char, jp]) => ({
+    char,
+    token: jp.<span class="code-fn">toLowerCase</span>() <span class="code-comment">// e.g. "sik6"</span>
+  }));
+}</div>
+          </div>
+        </div>
+
+        <!-- Vietnamese Pane -->
+        <div id="tab-vietnamese" class="tab-pane">
+          <div class="lang-card">
+            <div class="lang-header">
+              <div class="lang-title-group">
+                <h3>🇻🇳 Vietnamese (Tiếng Việt / Quốc ngữ)</h3>
+                <p>The easiest front-end implementation: words are already written with space-separated syllables.</p>
+              </div>
+              <div class="score-badge">Drop-in Rating: 10 / 10</div>
+            </div>
+
+            <div class="spec-grid">
+              <div class="spec-box">
+                <div class="spec-title">Tonal System</div>
+                <div class="spec-val">6 Tones (including glottalized & creaky voice)</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Vocabulary Size</div>
+                <div class="spec-val">~4,500 – 6,000 unique syllable forms</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Orthography</div>
+                <div class="spec-val">Chữ Quốc ngữ (Latin alphabet with tone marks)</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Front-End Segmentation</div>
+                <div class="spec-val">Trivial (<code>text.split(/\s+/)</code>)</div>
+              </div>
+            </div>
+
+            <p class="deep-text">
+              In written Vietnamese, every single syllable is <strong>space-delimited by orthographic design</strong> (e.g. <em>"Cộng hòa xã hội chủ nghĩa Việt Nam"</em>). This completely eliminates the need for complex G2P neural networks, Hanzi pinyin dictionaries, or segmentation engines. Every space-delimited word is a direct syllable token.
+            </p>
+
+            <table class="tone-table-mini">
+              <thead>
+                <tr>
+                  <th>Tone Mark</th>
+                  <th>Tone Name</th>
+                  <th>Pitch Contour</th>
+                  <th>Phonation / Vocal Quality</th>
+                  <th>Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>None</td><td>Ngang (Level)</td><td>33 (Mid)</td><td>Modal voice, flat pitch</td><td>ba (three)</td></tr>
+                <tr><td>Huyền ( ` )</td><td>Huyền (Deep)</td><td>21 (Low falling)</td><td>Breathy / relaxed voice</td><td>bà (grandmother)</td></tr>
+                <tr><td>Sắc ( ´ )</td><td>Sắc (Sharp)</td><td>35 / 45 (Rising)</td><td>High pitch, tense voice</td><td>bá (governor)</td></tr>
+                <tr><td>Hỏi ( ̉ )</td><td>Hỏi (Asking)</td><td>313 (Dipping-rising)</td><td>Low dipping, modal</td><td>bả (poison bait)</td></tr>
+                <tr><td>Ngã ( ~ )</td><td>Ngã (Tumbling)</td><td>325 (Glottalized rising)</td><td>Creaky voice + glottal catch</td><td>bã (residue)</td></tr>
+                <tr><td>Nặng ( . )</td><td>Nặng (Heavy)</td><td>21 (Drop with stop)</td><td>Creaky voice + sudden glottal stop</td><td>bạ (randomly)</td></tr>
+              </tbody>
+            </table>
+
+            <h4 style="font-size: 15px; margin-bottom: 8px;">Acoustic Considerations for CTC</h4>
+            <ul style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 16px;">
+              <li><strong>Creaky Voice & Glottalization:</strong> Vietnamese tones are defined not just by pitch (F0), but by <em>phonation register</em>. Tones <em>ngã</em> and <em>nặng</em> involve vocal fold tension and glottal closures. The 80-dim log-mel spectrogram captures these spectral irregularities effortlessly, giving the Conformer high discriminant power.</li>
+              <li><strong>Regional Dialects (Northern vs Southern):</strong> In Southern Vietnamese (Saigon), the <em>hỏi</em> and <em>ngã</em> tones merge into a single tone contour (~323). The scoring engine can provide a toggle: <code>strictNorthern: true/false</code> to accept merged confidence.</li>
+            </ul>
+
+            <h4 style="font-size: 15px; margin-bottom: 8px;">Front-End Tokenizer</h4>
+            <div class="code-block"><span class="code-comment">// Vietnamese Syllable Extraction (Zero heavy dependencies required)</span>
+<span class="code-kw">function</span> <span class="code-fn">vietnameseToTokens</span>(sentence) {
+  <span class="code-comment">// Normalize Unicode NFC (ensure composite diacritics match vocab)</span>
+  <span class="code-kw">const</span> clean = sentence.<span class="code-fn">normalize</span>(<span class="code-str">'NFC'</span>).<span class="code-fn">toLowerCase</span>();
+  <span class="code-kw">const</span> words = clean.<span class="code-fn">trim</span>().<span class="code-fn">split</span>(<span class="code-str">/\s+/</span>);
+  <span class="code-kw">return</span> words.<span class="code-fn">map</span>(w => ({
+    ortho: w,
+    token: w <span class="code-comment">// directly matches vocab.json entry!</span>
+  }));
+}</div>
+          </div>
+        </div>
+
+        <!-- Thai Pane -->
+        <div id="tab-thai" class="tab-pane">
+          <div class="lang-card">
+            <div class="lang-header">
+              <div class="lang-title-group">
+                <h3>🇹🇭 Thai (ภาษาไทย)</h3>
+                <p>5 phonemic tones with consonant classes and vowel length duration distinctions.</p>
+              </div>
+              <div class="score-badge">Drop-in Rating: 8.5 / 10</div>
+            </div>
+
+            <div class="spec-grid">
+              <div class="spec-box">
+                <div class="spec-title">Tonal System</div>
+                <div class="spec-val">5 Lexical Tones (Mid, Low, Falling, High, Rising)</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Vocabulary Size</div>
+                <div class="spec-val">~3,000 – 4,000 syllable+tone combinations</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Vowel Length</div>
+                <div class="spec-val">Phonemic (Short vs Long vowels change word meaning)</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-title">Segmentation</div>
+                <div class="spec-val">Script has no spaces; requires syllable tokenizer</div>
+              </div>
+            </div>
+
+            <p class="deep-text">
+              Thai orthography is an abugida where syllables are written continuously without spaces (spaces are used like commas or periods). Thai tones are computed through a four-way matrix: <strong>Consonant Class (Low, Mid, High) &times; Vowel Length (Short vs Long) &times; Syllable Ending (Live vs Dead / Sonorant vs Stop) &times; Tone Diacritic (่ , ้ , ๊ , ๋)</strong>.
+            </p>
+
+            <table class="tone-table-mini">
+              <thead>
+                <tr>
+                  <th>Tone Name</th>
+                  <th>Thai Name</th>
+                  <th>Chao Contour</th>
+                  <th>Description</th>
+                  <th>Example (RTGS + Tone)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Mid</td><td>สามัญ (Samanya)</td><td>33</td><td>Flat, middle of vocal range</td><td>กา (kaa1) - crow</td></tr>
+                <tr><td>Low</td><td>เอก (Ek)</td><td>21</td><td>Low flat / slightly falling</td><td>ก่า (kaa2) - branch</td></tr>
+                <tr><td>Falling</td><td>โท (Tho)</td><td>51</td><td>Starts high, falls sharply</td><td>ก้า (kaa3) - brave/bold</td></tr>
+                <tr><td>High</td><td>ตรี (Tri)</td><td>45</td><td>High rising / high flat</td><td>ก๊า (kaa4) - bird sound</td></tr>
+                <tr><td>Rising</td><td>จัตวา (Chattawa)</td><td>24</td><td>Dips low, sweeps upward</td><td>ก๋า (kaa5) - proud</td></tr>
+              </tbody>
+            </table>
+
+            <h4 style="font-size: 15px; margin-bottom: 8px;">Key Technical Nuances for Thai CTC</h4>
+            <ul style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 16px;">
+              <li><strong>Syllable Segmentation:</strong> Because Thai lacks word spaces, sentences like <code>สวัสดีครับ</code> must be split into syllables: <code>สะ-หวัด-ดี-ครับ</code> (sa-wat-dee-khrap). In Python, <code>pythainlp.tokenize.syllable_tokenize</code> handles this with &gt;98% accuracy. In JavaScript, a compact 150KB Trie dictionary or regex maximal-matching rule segments syllables client-side.</li>
+              <li><strong>Vowel Duration Modeling:</strong> Short vs Long vowels are phonemic (e.g. <em>khao</em> [rice] vs <em>khaao</em> [news]). Because the CTC Conformer frames are 40ms, a short vowel typically spans 2–3 frames while a long vowel spans 5–8 frames. The Viterbi trellis automatically learns duration constraints via repeat tokens.</li>
+            </ul>
+
+            <h4 style="font-size: 15px; margin-bottom: 8px;">Thai Syllable Tokenization Pipeline</h4>
+            <div class="code-block"><span class="code-comment"># Python G2P Pipeline using PyThaiNLP</span>
+<span class="code-kw">from</span> pythainlp.tokenize <span class="code-kw">import</span> syllable_tokenize
+<span class="code-kw">from</span> pythainlp.transliterate <span class="code-kw">import</span> romanize
+
+<span class="code-kw">def</span> <span class="code-fn">thai_to_tokens</span>(text: str):
+    syllables = <span class="code-fn">syllable_tokenize</span>(text)
+    <span class="code-comment"># syllables: ['สะ', 'หวัด', 'ดี', 'ครับ']</span>
+    tokens = [<span class="code-fn">romanize</span>(s, engine=<span class="code-str">"royin"</span>) <span class="code-kw">for</span> s <span class="code-kw">in</span> syllables]
+    <span class="code-kw">return</span> tokens <span class="code-comment"># ['sa', 'wat', 'di', 'khrap']</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Interactive Tokenizer Simulator -->
+      <section>
+        <div class="section-header">
+          <span class="section-badge">Live Interactive Demo</span>
+          <h2 class="section-title">Cross-Language Token & CTC Alignment Simulator</h2>
+          <p class="section-desc">Try sample sentences across Mandarin, Cantonese, Vietnamese, and Thai to see their token sequences and simulated CTC frame emissions.</p>
+        </div>
+
+        <div class="sim-box">
+          <div class="sim-controls">
+            <button class="sim-lang-btn active" onclick="setSimLang('mandarin')">🇨🇳 Mandarin</button>
+            <button class="sim-lang-btn" onclick="setSimLang('cantonese')">🇭🇰 Cantonese</button>
+            <button class="sim-lang-btn" onclick="setSimLang('vietnamese')">🇻🇳 Vietnamese</button>
+            <button class="sim-lang-btn" onclick="setSimLang('thai')">🇹🇭 Thai</button>
+          </div>
+
+          <div class="sim-presets" id="simPresets">
+            <!-- Populated via JS -->
+          </div>
+
+          <div class="sim-input-row">
+            <input type="text" id="simInput" class="sim-input" value="他是我的朋友" oninput="runSimulation()" />
+          </div>
+
+          <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); margin-bottom: 10px;">
+            Target CTC Token Sequence (Vocabulary Target)
+          </div>
+          <div class="token-sequence" id="tokenSequence">
+            <!-- Tokens rendered via JS -->
+          </div>
+
+          <div class="trellis-container">
+            <div class="trellis-header">
+              <span>Simulated 40ms CTC Frame Trellis Path</span>
+              <span id="trellisFramesLbl">32 Frames (~1.28s Audio)</span>
+            </div>
+            <div class="trellis-chart" id="trellisChart">
+              <!-- Trellis bars rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Step-by-Step Porting Blueprint -->
+      <section>
+        <div class="section-header">
+          <span class="section-badge">Implementation Guide</span>
+          <h2 class="section-title">Step-by-Step Model Porting Blueprint</h2>
+          <p class="section-desc">From raw speech corpus to optimized on-device WebAssembly binary.</p>
+        </div>
+
+        <div class="arch-grid">
+          <div class="arch-card agnostic">
+            <span class="card-tag green">Step 1: Dataset & Vocabulary</span>
+            <h3>Build <code>vocab.json</code></h3>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">
+              Download ~200–300 hours of speech from Common Voice or AISHELL. Extract all unique syllable+tone pairs across the transcripts.
+            </p>
+            <div class="code-block" style="margin: 0; padding: 12px; font-size: 12px;">
+vocab = ["&lt;blank&gt;", "&lt;unk&gt;"] + sorted(all_unique_tokens)
+with open("vocab.json", "w") as f:
+    json.dump(vocab, f, ensure_ascii=False)
+            </div>
+          </div>
+
+          <div class="arch-card agnostic">
+            <span class="card-tag green">Step 2: Conformer CTC Training</span>
+            <h3>Train 9M Conformer</h3>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">
+              4 Conformer encoder layers, 256 d_model, 4 attention heads, depthwise conv kernel 31. Total ~9.2M parameters.
+            </p>
+            <div class="code-block" style="margin: 0; padding: 12px; font-size: 12px;">
+# 8 hours on 4x RTX 4090
+loss = nn.CTCLoss(blank=0, zero_infinity=True)
+optimizer = AdamW(model.parameters(), lr=1e-3)
+            </div>
+          </div>
+
+          <div class="arch-card specific">
+            <span class="card-tag purple">Step 3: ONNX & INT8 Quantization</span>
+            <h3>Export & Compress</h3>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">
+              Export FP32 ONNX graph (~37 MB) and apply dynamic INT8 quantization to achieve ~11–13 MB with zero perceptual degradation.
+            </p>
+            <div class="code-block" style="margin: 0; padding: 12px; font-size: 12px;">
+from onnxruntime.quantization import quantize_dynamic
+quantize_dynamic("model.onnx", "model_int8.onnx",
+                 weight_type=QuantType.QInt8)
+            </div>
+          </div>
+
+          <div class="arch-card specific">
+            <span class="card-tag purple">Step 4: Web Deployment</span>
+            <h3>Plug into <code>index.html</code></h3>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">
+              Drop the quantized <code>.onnx</code> and new <code>vocab.json</code> into the folder. Switch front-end romanization script.
+            </p>
+            <div class="code-block" style="margin: 0; padding: 12px; font-size: 12px;">
+const session = await ort.InferenceSession
+  .create('./tiny_int8.onnx', { executionProviders: ['wasm'] });
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <p>Ear: On-Device CTC Speech Architecture &copy; 2026. Based on Simon Edwardsson's research.</p>
+        <p style="margin-top: 6px;">
+          <a href="index.html">Mandarin Tutor Web App</a> &bull; 
+          <a href="https://github.com/chid/mandarin" target="_blank">GitHub Repository</a> &bull; 
+          <a href="https://simedw.com/2026/01/31/ear-pronunication-via-ctc/" target="_blank">Original Article</a>
+        </p>
+      </footer>
+    </main>
+
+    <script>
+      // Multi-Language Presets & Data
+      const LANG_DATA = {
+        mandarin: {
+          name: "Mandarin",
+          placeholder: "输入中文句子...",
+          presets: [
+            { text: "他是我的朋友", label: "他是我的朋友" },
+            { text: "你好吗", label: "你好吗" },
+            { text: "我想吃饭", label: "我想吃饭" },
+            { text: "今天天气很好", label: "今天天气很好" }
+          ],
+          tokenize: (text) => {
+            const dict = {
+              "他": { token: "ta1", tone: "1 (High Level)" },
+              "是": { token: "shi4", tone: "4 (Falling)" },
+              "我": { token: "wo3", tone: "3 (Low Dipping)" },
+              "的": { token: "de5", tone: "5 (Neutral)" },
+              "朋": { token: "peng2", tone: "2 (Rising)" },
+              "友": { token: "you5", tone: "5 (Neutral)" },
+              "你": { token: "ni3", tone: "3 (Low Dipping)" },
+              "好": { token: "hao3", tone: "3 (Low Dipping)" },
+              "吗": { token: "ma5", tone: "5 (Neutral)" },
+              "想": { token: "xiang3", tone: "3 (Low Dipping)" },
+              "吃": { token: "chi1", tone: "1 (High Level)" },
+              "饭": { token: "fan4", tone: "4 (Falling)" },
+              "今": { token: "jin1", tone: "1 (High Level)" },
+              "天": { token: "tian1", tone: "1 (High Level)" },
+              "气": { token: "qi4", tone: "4 (Falling)" },
+              "很": { token: "hen3", tone: "3 (Low Dipping)" }
+            };
+            return Array.from(text).map(char => {
+              if (dict[char]) return { ortho: char, token: dict[char].token, tone: dict[char].tone };
+              return { ortho: char, token: char.toLowerCase(), tone: "Character" };
+            });
+          }
+        },
+        cantonese: {
+          name: "Cantonese",
+          placeholder: "輸入粵語句子...",
+          presets: [
+            { text: "食咗飯未呀", label: "食咗飯未呀" },
+            { text: "你好嗎", label: "你好嗎" },
+            { text: "唔該晒你", label: "唔該晒你" },
+            { text: "今日好熱", label: "今日好熱" }
+          ],
+          tokenize: (text) => {
+            const dict = {
+              "食": { token: "sik6", tone: "6 (Low Level Stop)" },
+              "咗": { token: "zo2", tone: "2 (High Rising)" },
+              "飯": { token: "faan6", tone: "6 (Low Level)" },
+              "未": { token: "mei6", tone: "6 (Low Level)" },
+              "呀": { token: "aa3", tone: "3 (Mid Level)" },
+              "你": { token: "nei5", tone: "5 (Low Rising)" },
+              "好": { token: "hou2", tone: "2 (High Rising)" },
+              "嗎": { token: "maa3", tone: "3 (Mid Level)" },
+              "唔": { token: "m4", tone: "4 (Low Falling Nasal)" },
+              "該": { token: "goi1", tone: "1 (High Flat)" },
+              "晒": { token: "saai3", tone: "3 (Mid Flat)" },
+              "今": { token: "gam1", tone: "1 (High Flat)" },
+              "日": { token: "jat6", tone: "6 (Low Level Stop)" },
+              "熱": { token: "jit6", tone: "6 (Low Level Stop)" }
+            };
+            return Array.from(text).map(char => {
+              if (dict[char]) return { ortho: char, token: dict[char].token, tone: dict[char].tone };
+              return { ortho: char, token: char.toLowerCase(), tone: "Cantonese Syllable" };
+            });
+          }
+        },
+        vietnamese: {
+          name: "Vietnamese",
+          placeholder: "Nhập câu tiếng Việt...",
+          presets: [
+            { text: "tôi đang học tiếng việt", label: "tôi đang học tiếng việt" },
+            { text: "xin chào bạn", label: "xin chào bạn" },
+            { text: "chúc một ngày tốt lành", label: "chúc một ngày tốt lành" },
+            { text: "phở bò rất ngon", label: "phở bò rất ngon" }
+          ],
+          tokenize: (text) => {
+            const toneMap = {
+              "tôi": "Ngang (Level 33)",
+              "đang": "Ngang (Level 33)",
+              "học": "Nặng (Drop Stop 21)",
+              "tiếng": "Sắc (Rising 35)",
+              "việt": "Nặng (Drop Stop 21)",
+              "xin": "Ngang (Level 33)",
+              "chào": "Huyền (Deep Falling 21)",
+              "bạn": "Nặng (Drop Stop 21)",
+              "chúc": "Sắc (Rising 35)",
+              "một": "Nặng (Drop Stop 21)",
+              "ngày": "Huyền (Deep Falling 21)",
+              "tốt": "Sắc (Rising 35)",
+              "lành": "Huyền (Deep Falling 21)",
+              "phở": "Hỏi (Dipping 313)",
+              "bò": "Huyền (Deep Falling 21)",
+              "rất": "Sắc (Rising 35)",
+              "ngon": "Ngang (Level 33)"
+            };
+            const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+            return words.map(w => {
+              const lower = w.toLowerCase();
+              return {
+                ortho: w,
+                token: lower,
+                tone: toneMap[lower] || "Orthographic Syllable"
+              };
+            });
+          }
+        },
+        thai: {
+          name: "Thai",
+          placeholder: "พิมพ์ประโยคภาษาไทย...",
+          presets: [
+            { text: "สวัสดีครับ", label: "สวัสดีครับ (sa-wat-di-khrap)" },
+            { text: "ขอบคุณมาก", label: "ขอบคุณมาก (khop-khun-mak)" },
+            { text: "สบายดีไหม", label: "สบายดีไหม (sa-bai-di-mai)" },
+            { text: "กินข้าวหรือยัง", label: "กินข้าวหรือยัง (kin-khao-rue-yang)" }
+          ],
+          tokenize: (text) => {
+            const presetMap = {
+              "สวัสดีครับ": [
+                { ortho: "สะ", token: "sa2", tone: "Tone 2 (Low)" },
+                { ortho: "หวัด", token: "wat2", tone: "Tone 2 (Low Dead)" },
+                { ortho: "ดี", token: "di1", tone: "Tone 1 (Mid Long)" },
+                { ortho: "ครับ", token: "khrap4", tone: "Tone 4 (High Dead)" }
+              ],
+              "ขอบคุณมาก": [
+                { ortho: "ขอบ", token: "khop2", tone: "Tone 2 (Low Dead)" },
+                { ortho: "คุณ", token: "khun1", tone: "Tone 1 (Mid Live)" },
+                { ortho: "มาก", token: "mak3", tone: "Tone 3 (Falling Dead)" }
+              ],
+              "สบายดีไหม": [
+                { ortho: "สะ", token: "sa2", tone: "Tone 2 (Low)" },
+                { ortho: "บาย", token: "bai1", tone: "Tone 1 (Mid Live)" },
+                { ortho: "ดี", token: "di1", tone: "Tone 1 (Mid Live)" },
+                { ortho: "ไหม", token: "mai5", tone: "Tone 5 (Rising)" }
+              ],
+              "กินข้าวหรือยัง": [
+                { ortho: "กิน", token: "kin1", tone: "Tone 1 (Mid Live)" },
+                { ortho: "ข้าว", token: "khao3", tone: "Tone 3 (Falling)" },
+                { ortho: "หรือ", token: "rue5", tone: "Tone 5 (Rising)" },
+                { ortho: "ยัง", token: "yang1", tone: "Tone 1 (Mid Live)" }
+              ]
+            };
+            if (presetMap[text.trim()]) return presetMap[text.trim()];
+            // Fallback mock segmenter for custom Thai text
+            return Array.from(text).map((c, i) => ({
+              ortho: c,
+              token: "syl_" + (i + 1),
+              tone: "Segmented Unit"
+            }));
+          }
+        }
+      };
+
+      let currentSimLang = 'mandarin';
+
+      function setSimLang(langKey) {
+        currentSimLang = langKey;
+        document.querySelectorAll('.sim-lang-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.textContent.toLowerCase().includes(langKey));
+        });
+
+        const langConf = LANG_DATA[langKey];
+        const input = document.getElementById('simInput');
+        input.placeholder = langConf.placeholder;
+        input.value = langConf.presets[0].text;
+
+        // Render Presets
+        const presetsContainer = document.getElementById('simPresets');
+        presetsContainer.innerHTML = '<span style="margin-right: 4px;">Presets:</span>';
+        langConf.presets.forEach(p => {
+          const chip = document.createElement('button');
+          chip.className = 'preset-chip';
+          chip.textContent = p.label;
+          chip.onclick = () => {
+            input.value = p.text;
+            runSimulation();
+          };
+          presetsContainer.appendChild(chip);
+        });
+
+        runSimulation();
+      }
+
+      function runSimulation() {
+        const text = document.getElementById('simInput').value;
+        const langConf = LANG_DATA[currentSimLang];
+        const tokens = langConf.tokenize(text);
+
+        // Render Token Cards
+        const tokenContainer = document.getElementById('tokenSequence');
+        tokenContainer.innerHTML = '';
+        if (tokens.length === 0) {
+          tokenContainer.innerHTML = '<span style="color: var(--text-dim); font-size: 14px;">No tokens generated</span>';
+          return;
+        }
+
+        tokens.forEach(t => {
+          const card = document.createElement('div');
+          card.className = 'token-card';
+          card.innerHTML = `
+            <div class="token-ortho">${t.ortho}</div>
+            <div class="token-ctc">${t.token}</div>
+            <div class="token-tone-desc">${t.tone}</div>
+          `;
+          tokenContainer.appendChild(card);
+        });
+
+        // Render Simulated Trellis
+        renderTrellis(tokens);
+      }
+
+      function renderTrellis(tokens) {
+        const chart = document.getElementById('trellisChart');
+        chart.innerHTML = '';
+
+        // Generate synthetic CTC frame distribution (e.g. 5-7 frames per token, interspersed with blanks)
+        const frameData = [];
+        // Leading silence
+        frameData.push({ height: 10, isBlank: true, lbl: '0.0s' });
+        frameData.push({ height: 12, isBlank: true });
+        frameData.push({ height: 8, isBlank: true });
+
+        tokens.forEach((t, idx) => {
+          const numFrames = 4 + Math.floor(Math.random() * 3);
+          for (let f = 0; f < numFrames; f++) {
+            // Center frames of the syllable have highest emission probability
+            const bell = Math.sin((f + 1) / (numFrames + 1) * Math.PI);
+            const probHeight = Math.max(25, Math.floor(bell * 95 + (Math.random() * 10)));
+            frameData.push({
+              height: probHeight,
+              isBlank: false,
+              token: t.token
+            });
+          }
+          // Short blank between syllables
+          frameData.push({ height: 14, isBlank: true });
+          if (idx < tokens.length - 1) frameData.push({ height: 9, isBlank: true });
+        });
+
+        // Trailing silence
+        frameData.push({ height: 11, isBlank: true });
+        frameData.push({ height: 7, isBlank: true });
+
+        const totalSeconds = (frameData.length * 0.04).toFixed(2);
+        document.getElementById('trellisFramesLbl').textContent = `${frameData.length} Frames (~${totalSeconds}s Audio)`;
+
+        frameData.forEach((d, idx) => {
+          const col = document.createElement('div');
+          col.className = 'trellis-bar-col';
+
+          const bar = document.createElement('div');
+          bar.className = `trellis-bar ${d.isBlank ? 'blank' : 'emission'}`;
+          bar.style.height = `${d.height}%`;
+          if (!d.isBlank) {
+            bar.title = `Frame ${idx}: P(${d.token}) = ${(d.height / 100).toFixed(2)}`;
+          } else {
+            bar.title = `Frame ${idx}: P(<blank>) = 0.94`;
+          }
+
+          col.appendChild(bar);
+          if (idx % 6 === 0) {
+            const lbl = document.createElement('div');
+            lbl.className = 'trellis-time-lbl';
+            lbl.textContent = `${(idx * 0.04).toFixed(1)}s`;
+            col.appendChild(lbl);
+          }
+
+          chart.appendChild(col);
+        });
+      }
+
+      function switchTab(lang) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+
+        event.currentTarget.classList.add('active');
+        document.getElementById('tab-' + lang).classList.add('active');
+      }
+
+      // Initialize Simulator
+      window.addEventListener('DOMContentLoaded', () => {
+        setSimLang('mandarin');
+      });
+    </script>
+  </body>
+</html>
