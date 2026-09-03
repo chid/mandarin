@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ear: Project Plan & Continuation Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg: #0a0a0b;
+        --bg-subtle: #141417;
+        --card-bg: rgba(22, 22, 26, 0.7);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --text: #fafafa;
+        --text-muted: #a1a1aa;
+        --text-dim: #71717a;
+        --accent: #6366f1;
+        --accent-light: #818cf8;
+        --accent-glow: rgba(99, 102, 241, 0.25);
+        --correct: #22c55e;
+        --correct-bg: rgba(34, 197, 94, 0.12);
+        --amber: #f59e0b;
+        --amber-bg: rgba(245, 158, 11, 0.12);
+        --cyan: #06b6d4;
+        --cyan-bg: rgba(6, 182, 212, 0.12);
+        --rose: #f43f5e;
+        --rose-bg: rgba(244, 63, 94, 0.12);
+        --code-bg: #111114;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background: radial-gradient(ellipse at 50% 10%, #141426 0%, #0a0a0b 45%, #050506 100%);
+        color: var(--text);
+        min-height: 100vh;
+        line-height: 1.65;
+        padding-bottom: 90px;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: var(--accent-light);
+        text-decoration: none;
+        transition: color 0.15s ease;
+      }
+      a:hover {
+        color: #c7d2fe;
+        text-decoration: underline;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(10, 10, 11, 0.85);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--card-border);
+        padding: 14px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .nav-badge {
+        font-size: 11px;
+        font-weight: 500;
+        background: var(--accent-glow);
+        color: var(--accent-light);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        padding: 2px 8px;
+        border-radius: 9999px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 13px;
+      }
+
+      .nav-btn {
+        padding: 6px 14px;
+        border-radius: 6px;
+        background: var(--bg-subtle);
+        border: 1px solid var(--card-border);
+        color: var(--text);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+      }
+      .nav-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        text-decoration: none;
+      }
+      .nav-btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .nav-btn.primary:hover {
+        background: #4f46e5;
+      }
+
+      /* Container */
+      .container {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 40px 24px 0 24px;
+      }
+
+      /* Hero */
+      .hero {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--correct);
+        background: var(--correct-bg);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        padding: 6px 16px;
+        border-radius: 9999px;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 {
+        font-size: clamp(32px, 5vw, 46px);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #ffffff 40%, #a1a1aa 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero p {
+        font-size: clamp(16px, 2vw, 18px);
+        color: var(--text-muted);
+        max-width: 780px;
+        margin: 0 auto 24px auto;
+        font-weight: 300;
+      }
+
+      /* Progress Bar Widget */
+      .progress-widget {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 20px 24px;
+        margin-bottom: 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      }
+
+      .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .progress-bar-bg {
+        width: 100%;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 9999px;
+        overflow: hidden;
+      }
+
+      .progress-bar-fill {
+        height: 100%;
+        width: 65%;
+        background: linear-gradient(90deg, #6366f1, #22c55e);
+        border-radius: 9999px;
+        transition: width 0.4s ease;
+      }
+
+      .progress-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--text-dim);
+      }
+
+      /* Sections */
+      section {
+        margin-bottom: 56px;
+      }
+
+      .section-badge {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+        color: var(--accent-light);
+        margin-bottom: 6px;
+        display: block;
+      }
+
+      .section-title {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+
+      .section-desc {
+        color: var(--text-muted);
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      /* Cards Grid */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 18px;
+        margin-bottom: 24px;
+      }
+
+      .status-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .status-card.done {
+        border-left: 4px solid var(--correct);
+      }
+
+      .status-card.active {
+        border-left: 4px solid var(--accent);
+      }
+
+      .status-card.next {
+        border-left: 4px solid var(--amber);
+      }
+
+      .status-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .status-card-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .badge {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-weight: 700;
+      }
+
+      .badge.done { background: var(--correct-bg); color: var(--correct); }
+      .badge.active { background: var(--accent-glow); color: var(--accent-light); }
+      .badge.next { background: var(--amber-bg); color: var(--amber); }
+
+      .status-card-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.55;
+      }
+
+      /* Checklist */
+      .task-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .task-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: var(--text-muted);
+        transition: all 0.15s ease;
+      }
+
+      .task-item:hover {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      .task-item.checked {
+        color: var(--text-dim);
+        text-decoration: line-through;
+      }
+
+      .task-checkbox {
+        accent-color: var(--correct);
+        width: 16px;
+        height: 16px;
+        margin-top: 2px;
+        cursor: pointer;
+      }
+
+      .task-label {
+        flex: 1;
+        cursor: pointer;
+      }
+      .task-label strong {
+        color: var(--text);
+      }
+
+      /* Architecture Reference Table */
+      .ref-table-wrap {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        overflow-x: auto;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        text-align: left;
+      }
+
+      th {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 12px 16px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-dim);
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      td {
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--card-border);
+        color: var(--text-muted);
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      td code {
+        background: rgba(255, 255, 255, 0.06);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        color: var(--accent-light);
+      }
+
+      /* Code Blocks */
+      .code-box {
+        background: var(--code-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 18px 20px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        line-height: 1.55;
+        overflow-x: auto;
+        color: #e2e8f0;
+        margin: 14px 0;
+        position: relative;
+      }
+
+      .code-comment { color: #64748b; }
+      .code-kw { color: #f43f5e; }
+      .code-fn { color: #38bdf8; }
+      .code-str { color: #a3e635; }
+      .code-num { color: #fbbf24; }
+
+      /* Footer */
+      footer {
+        margin-top: 80px;
+        text-align: center;
+        color: var(--text-dim);
+        font-size: 13px;
+        border-top: 1px solid var(--card-border);
+        padding-top: 32px;
+      }
+
+      @media (max-width: 768px) {
+        .navbar { padding: 12px 16px; }
+        .container { padding: 24px 16px 0 16px; }
+        .card-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Navigation -->
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <span>Ear Project Hub</span>
+        <span class="nav-badge">Plan & Notes</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Mandarin App
+        </a>
+        <a href="multilingual.html" class="nav-btn">
+          <span>🌐</span> Multi-Lang Spec
+        </a>
+        <a href="https://github.com/chid/mandarin" target="_blank" rel="noopener" class="nav-btn primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </nav>
+
+    <main class="container">
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-tag">Project Continuity Document</div>
+        <h1>Ear: Architecture, Progress & Continuation Plan</h1>
+        <p>A persistent technical guide, roadmap, and implementation notebook for extending the on-device Conformer CTC pronunciation tutor.</p>
+      </div>
+
+      <!-- Live Interactive Progress Widget -->
+      <div class="progress-widget">
+        <div class="progress-header">
+          <span>Project Roadmap Completion</span>
+          <span id="progressPercent" style="color: var(--accent-light);">65%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBarFill" style="width: 65%;"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="tasksCountLbl">13 of 20 items completed</span>
+          <span>Last Updated: September 2026</span>
+        </div>
+      </div>
+
+      <!-- Section 1: Executive Summary & Completed Work -->
+      <section>
+        <div class="section-header">
+          <span class="section-badge">Status Report</span>
+          <h2 class="section-title">What Has Been Implemented So Far</h2>
+          <p class="section-desc">Summary of key milestones achieved across repository setup, model porting, and frontend features.</p>
+        </div>
+
+        <div class="card-grid">
+          <div class="status-card done">
+            <div class="status-card-header">
+              <div class="status-card-title">
+                <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Git & Open Source Setup
+              </div>
+              <span class="badge done">Completed</span>
+            </div>
+            <div class="status-card-desc">
+              Repository initialized and pushed to GitHub (<a href="https://github.com/chid/mandarin" target="_blank"><code>chid/mandarin</code></a>). Original blog post and media archived locally in <code>blog_post/</code> and cleanly excluded from Git tracking via <code>.gitignore</code>.
+            </div>
+          </div>
+
+          <div class="status-card done">
+            <div class="status-card-header">
+              <div class="status-card-title">
+                <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Multilingual Feasibility Analysis
+              </div>
+              <span class="badge done">Completed</span>
+            </div>
+            <div class="status-card-desc">
+              Researched and built <a href="multilingual.html"><code>multilingual.html</code></a>: comprehensive architecture guide, linguistic feasibility matrix, and interactive simulator comparing Mandarin, Cantonese, Vietnamese, and Thai.
+            </div>
+          </div>
+
+          <div class="status-card done">
+            <div class="status-card-header">
+              <div class="status-card-title">
+                <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Practice Chat Log & Alignment Timeline
+              </div>
+              <span class="badge done">Completed</span>
+            </div>
+            <div class="status-card-desc">
+              Integrated real-time session logging into <a href="index.html"><code>index.html</code></a>. Added per-turn audio playback, retry buttons, and the <strong>"Line Up Audio"</strong> panel displaying CTC frame timing bars, durations (ms), and model confidence.
+            </div>
+          </div>
+
+          <div class="status-card done">
+            <div class="status-card-header">
+              <div class="status-card-title">
+                <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Conversational Dialogue Scenarios
+              </div>
+              <span class="badge done">Completed</span>
+            </div>
+            <div class="status-card-desc">
+              Implemented multi-turn roleplay dialogues (Ordering Coffee, Taking a Taxi, Greeting a Friend, Restaurant Ordering) with partner prompts, ruby annotations, and automatic turn progression.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Codebase Architecture Map -->
+      <section>
+        <div class="section-header">
+          <span class="section-badge">Codebase Reference</span>
+          <h2 class="section-title">Directory Map & Architecture Invariants</h2>
+          <p class="section-desc">Key files and their responsibilities in the on-device inference pipeline.</p>
+        </div>
+
+        <div class="ref-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>File / Module</th>
+                <th>Role & Responsibility</th>
+                <th>Language Reusability</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>tiny_int8.onnx</code></td>
+                <td>9M parameter INT8 quantized Conformer CTC encoder (~14 MB). Runs at 40ms frame resolution.</td>
+                <td>Acoustic model (retrained per language)</td>
+                <td><span class="badge done">Ready</span></td>
+              </tr>
+              <tr>
+                <td><code>audio-processor.js</code></td>
+                <td>Web Audio API 80-channel log-mel filterbank extraction (n_fft=400, hop=160) + per-utterance CMVN.</td>
+                <td><strong>100% Invariant</strong> (Universal acoustics)</td>
+                <td><span class="badge done">Production</span></td>
+              </tr>
+              <tr>
+                <td><code>ctc.js</code></td>
+                <td>Log-softmax calculation and dynamic programming Viterbi forced alignment trellis.</td>
+                <td><strong>100% Invariant</strong> (Operates on token IDs)</td>
+                <td><span class="badge done">Production</span></td>
+              </tr>
+              <tr>
+                <td><code>scoring.js</code></td>
+                <td>Blank silence frame filtering (thr=0.7), syllable confidence scoring, and Sandhi rules.</td>
+                <td>Scoring engine invariant; sandhi rules language-specific</td>
+                <td><span class="badge done">Production</span></td>
+              </tr>
+              <tr>
+                <td><code>index.html</code></td>
+                <td>Main Web UI, ONNX Runtime WebAssembly execution, recording, chat log, and scenarios.</td>
+                <td>UI framework invariant; text presets language-specific</td>
+                <td><span class="badge done">Production</span></td>
+              </tr>
+              <tr>
+                <td><code>multilingual.html</code></td>
+                <td>Documentation, feasibility matrix, and interactive tokenizer simulator for Cantonese, Viet, Thai.</td>
+                <td>Reference & Showcase</td>
+                <td><span class="badge done">Production</span></td>
+              </tr>
+              <tr>
+                <td><code>ear_model.py</code> & <code>cli.py</code></td>
+                <td>Python backend implementation for offline audio evaluation, batch processing, and testing.</td>
+                <td>Engine invariant; vocab swapped for other languages</td>
+                <td><span class="badge done">Ready</span></td>
+              </tr>
+              <tr>
+                <td><code>server.py</code></td>
+                <td>Local HTTP server configured with Cross-Origin headers (COOP/COEP) for WASM multithreading.</td>
+                <td>Universal utility</td>
+                <td><span class="badge done">Ready</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 3: Interactive Continuation Roadmap -->
+      <section>
+        <div class="section-header">
+          <span class="section-badge">Roadmap & Checklist</span>
+          <h2 class="section-title">Continuation Plan & Next Steps</h2>
+          <p class="section-desc">Interactive tracker for the next phases of development. Check items as you complete them.</p>
+        </div>
+
+        <!-- Phase 1 -->
+        <h3 style="font-size: 17px; margin-bottom: 8px; color: var(--text);">Phase 1: Multi-Language Model Training & Data Pipelines</h3>
+        <div class="task-list" id="phase1List">
+          <label class="task-item checked">
+            <input type="checkbox" class="task-checkbox" checked onchange="updateProgress()" />
+            <span class="task-label"><strong>Cantonese Tokenizer:</strong> Test in-browser <code>to-jyutping</code> JS library to generate Jyutping syllable+tone tokens.</span>
+          </label>
+          <label class="task-item checked">
+            <input type="checkbox" class="task-checkbox" checked onchange="updateProgress()" />
+            <span class="task-label"><strong>Vietnamese Segmenter:</strong> Verify space-delimited Quốc ngữ token mapping and diacritic normalization (NFC).</span>
+          </label>
+          <label class="task-item checked">
+            <input type="checkbox" class="task-checkbox" checked onchange="updateProgress()" />
+            <span class="task-label"><strong>Thai Syllable Tokenizer:</strong> Prototype client-side Trie syllable segmenter without word spaces.</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()" />
+            <span class="task-label"><strong>Dataset Download:</strong> Download Common Voice Cantonese v17 (~100h) and VIVOS Vietnamese (~15h) for training.</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()" />
+            <span class="task-label"><strong>PyTorch Training Script:</strong> Create <code>train_ctc.py</code> using PyTorch / Torchaudio Conformer architecture with SpecAugment.</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()" />
+            <span class="task-label"><strong>ONNX & INT8 Export Pipeline:</strong> Script automated export from PyTorch checkpoint to INT8 ONNX graph with dynamic quantization.</span>
+          </label>
+        </div>
+
+        <!-- Phase 2 -->
+        <h3 style="font-size: 17px; margin: 24px 0 8px 0; color: var(--text);">Phase 2: Enhanced Audio Alignment & Interactive Slicing</h3>
+        <div class="task-list" id="phase2List">
+          <label class="task-item checked">
+            <input type="checkbox" class="task-checkbox" checked onchange="updateProgress()" />
+            <span class="task-label"><strong>Forced Alignment Frame Timings:</strong> Extract start/end frames from Viterbi trellis in <code>index.html</code>.</span>
+          </label>
+          <label class="task-item checked">
+            <input type="checkbox" class="task-checkbox" checked onchange="updateProgress()" />
+            <span class="task-label"><strong>Visual Alignment Timeline:</strong> Render color-coded syllable duration bars in chat cards.</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()" />
+            <span class="task-label"><strong>Click-to-Play Syllable Slices:</strong> Allow clicking individual syllables on the timeline to play back just that 200–400ms audio slice.</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()" />
+            <span class="task-label"><strong>F0 Pitch Contour Overlay:</strong> Implement in-browser autocorrelation/YIN pitch tracker to visually display the speaker's vocal pitch line over the target tone shape.</span>
+          </label>
+        </div>
+
+        <!-- Phase 3 -->
+        <h3 style="font-size: 17px; margin: 24px 0 8px 0; color: var(--text);">Phase 3: Conversational Intelligence & Roleplay Scenarios</h3>
+        <div class="task-list" id="phase3List">
+          <label class="task-item checked">
+            <input type="checkbox" class="task-checkbox" checked onchange="updateProgress()" />
+            <span class="task-label"><strong>Scenario Engine:</strong> 4 multi-turn dialogue scenarios with auto-progressing prompts.</span>
+          </label>
+          <label class="task-item checked">
+            <input type="checkbox" class="task-checkbox" checked onchange="updateProgress()" />
+            <span class="task-label"><strong>Export Capabilities:</strong> Download formatted Markdown practice summaries and structured JSON data.</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()" />
+            <span class="task-label"><strong>Web Speech / TTS Partner Audio:</strong> Use browser <code>speechSynthesis</code> to speak the partner's dialogue lines in native Chinese.</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()" />
+            <span class="task-label"><strong>Custom Scenario Builder:</strong> JSON import/export modal allowing learners to input their own custom study scripts.</span>
+          </label>
+        </div>
+
+        <!-- Phase 4 -->
+        <h3 style="font-size: 17px; margin: 24px 0 8px 0; color: var(--text);">Phase 4: Mobile & Production Deployment</h3>
+        <div class="task-list" id="phase4List">
+          <label class="task-item checked">
+            <input type="checkbox" class="task-checkbox" checked onchange="updateProgress()" />
+            <span class="task-label"><strong>COOP / COEP Web Server:</strong> Ensure local development server serves appropriate WASM multithreading headers.</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()" />
+            <span class="task-label"><strong>PWA (Progressive Web App):</strong> Add <code>manifest.json</code> and Service Worker cache for 100% offline mobile smartphone practice.</span>
+          </label>
+          <label class="task-item">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()" />
+            <span class="task-label"><strong>IndexedDB Audio Caching:</strong> Persist audio recordings across browser sessions using IndexedDB instead of ephemeral Blob URLs.</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Section 4: Deep-Dive Code Snippets for Continuation -->
+      <section>
+        <div class="section-header">
+          <span class="section-badge">Implementation Recipes</span>
+          <h2 class="section-title">Continuation Code Recipes</h2>
+          <p class="section-desc">Ready-to-use snippets for immediate next-step implementations.</p>
+        </div>
+
+        <h4 style="font-size: 15px; margin-bottom: 6px; color: var(--text);">1. Syllable Audio Slice Playback (Next Task for <code>index.html</code>)</h4>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
+          Using the Web Audio API to play just the specific time window (e.g. <code>0.48s → 0.80s</code>) when a user clicks a syllable segment:
+        </p>
+        <div class="code-box"><span class="code-kw">function</span> <span class="code-fn">playSyllableSlice</span>(turnId, startSec, endSec) {
+  <span class="code-kw">const</span> turn = state.chatHistory.<span class="code-fn">find</span>(t => t.id === turnId);
+  <span class="code-kw">if</span> (!turn || !turn.audioBlob) <span class="code-kw">return</span>;
+
+  <span class="code-kw">const</span> reader = <span class="code-kw">new</span> <span class="code-fn">FileReader</span>();
+  reader.onload = <span class="code-kw">async</span> () => {
+    <span class="code-kw">const</span> ctx = <span class="code-kw">new</span> (<span class="code-fn">AudioContext</span> || webkitAudioContext)();
+    <span class="code-kw">const</span> audioBuffer = <span class="code-kw">await</span> ctx.<span class="code-fn">decodeAudioData</span>(reader.result);
+    <span class="code-kw">const</span> source = ctx.<span class="code-fn">createBufferSource</span>();
+    source.buffer = audioBuffer;
+    source.<span class="code-fn">connect</span>(ctx.destination);
+    
+    <span class="code-comment">// Play only the syllable window with a small 20ms padding</span>
+    <span class="code-kw">const</span> offset = Math.<span class="code-fn">max</span>(<span class="code-num">0</span>, startSec - <span class="code-num">0.02</span>);
+    <span class="code-kw">const</span> duration = (endSec - startSec) + <span class="code-num">0.04</span>;
+    source.<span class="code-fn">start</span>(<span class="code-num">0</span>, offset, duration);
+  };
+  reader.<span class="code-fn">readAsArrayBuffer</span>(turn.audioBlob);
+}</div>
+
+        <h4 style="font-size: 15px; margin: 20px 0 6px 0; color: var(--text);">2. Partner Speech Synthesis (Native In-Browser TTS)</h4>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
+          Playing the partner dialogue voice without needing an external cloud API:
+        </p>
+        <div class="code-box"><span class="code-kw">function</span> <span class="code-fn">speakPartnerText</span>(text) {
+  <span class="code-kw">if</span> (!window.speechSynthesis) <span class="code-kw">return</span>;
+  <span class="code-kw">const</span> utterance = <span class="code-kw">new</span> <span class="code-fn">SpeechSynthesisUtterance</span>(text);
+  utterance.lang = <span class="code-str">'zh-CN'</span>; <span class="code-comment">// Use 'zh-HK' for Cantonese, 'vi-VN' for Viet, 'th-TH' for Thai</span>
+  utterance.rate = <span class="code-num">0.9</span>;     <span class="code-comment">// Slightly slower for learners</span>
+  window.speechSynthesis.<span class="code-fn">speak</span>(utterance);
+}</div>
+      </section>
+
+      <!-- Section 5: Developer Handbook & Commands -->
+      <section>
+        <div class="section-header">
+          <span class="section-badge">Cheat Sheet</span>
+          <h2 class="section-title">Developer Quickstart & CLI Handbook</h2>
+          <p class="section-desc">Key terminal commands for testing, serving, and verifying the application.</p>
+        </div>
+
+        <div class="code-box"><span class="code-comment"># 1. Start Local Web Server (with Cross-Origin Isolation headers)</span>
+python3 server.py --port 8000
+
+<span class="code-comment"># 2. Run Offline Python CLI Evaluation on Audio Files</span>
+./cli.py eval samples/test_friend.wav --sentence "他是我的朋友"
+./cli.py eval samples/test_nihao.wav --sentence "你好" --json
+
+<span class="code-comment"># 3. Check Sentence Pinyin & Expected CTC Tokens</span>
+./cli.py pinyin "今天天气很好"
+
+<span class="code-comment"># 4. Check Local Git Status & GitHub Remote</span>
+git status
+git remote -v  <span class="code-comment"># origin -> https://github.com/chid/mandarin</span>
+git log -n 5 --oneline</div>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <p>Ear: On-Device Mandarin & Multilingual Pronunciation Tutor &copy; 2026.</p>
+        <p style="margin-top: 6px;">
+          <a href="index.html">Mandarin Tutor</a> &bull;
+          <a href="multilingual.html">Multilingual Architecture</a> &bull;
+          <a href="plan.html">Project Plan & Notes</a> &bull;
+          <a href="https://github.com/chid/mandarin" target="_blank">GitHub Repository</a>
+        </p>
+      </footer>
+    </main>
+
+    <script>
+      // Interactive Task Checklist & Live Progress Calculator
+      function updateProgress() {
+        const checkboxes = document.querySelectorAll('.task-checkbox');
+        const total = checkboxes.length;
+        let checked = 0;
+
+        checkboxes.forEach(cb => {
+          const item = cb.closest('.task-item');
+          if (cb.checked) {
+            checked++;
+            item.classList.add('checked');
+          } else {
+            item.classList.remove('checked');
+          }
+        });
+
+        const pct = Math.round((checked / total) * 100);
+        document.getElementById('progressPercent').textContent = pct + '%';
+        document.getElementById('progressBarFill').style.width = pct + '%';
+        document.getElementById('tasksCountLbl').textContent = `${checked} of ${total} items completed`;
+
+        // Save checklist state to localStorage
+        const states = Array.from(checkboxes).map(cb => cb.checked);
+        localStorage.setItem('ear_plan_checklist_state', JSON.stringify(states));
+      }
+
+      // Restore checklist state
+      window.addEventListener('DOMContentLoaded', () => {
+        const saved = localStorage.getItem('ear_plan_checklist_state');
+        if (saved) {
+          try {
+            const states = JSON.parse(saved);
+            const checkboxes = document.querySelectorAll('.task-checkbox');
+            checkboxes.forEach((cb, i) => {
+              if (states[i] !== undefined) {
+                cb.checked = states[i];
+              }
+            });
+          } catch(e) {
+            console.warn('Could not restore checklist:', e);
+          }
+        }
+        updateProgress();
+      });
+    </script>
+  </body>
+</html>
