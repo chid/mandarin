@@ -835,6 +835,440 @@
           font-size: 13px;
         }
       }
+
+      /* Practice Chat Log & Conversational Alignment */
+      .chat-section {
+        width: 100%;
+        max-width: 800px;
+        margin-top: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .chat-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 12px;
+      }
+
+      .chat-tabs {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .chat-tab {
+        background: var(--bg-subtle);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--text-muted);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 6px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+      }
+
+      .chat-tab:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .chat-tab.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+
+      .chat-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .chat-action-btn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--text-dim);
+        font-family: inherit;
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.15s ease;
+      }
+
+      .chat-action-btn:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .scenario-container {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        background: rgba(99, 102, 241, 0.04);
+        border: 1px solid rgba(99, 102, 241, 0.15);
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 8px;
+      }
+
+      .scenario-container.active {
+        display: flex;
+      }
+
+      .scenario-chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .scenario-chip {
+        background: var(--bg-subtle);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--text-muted);
+        font-size: 12px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .scenario-chip:hover {
+        color: var(--text);
+        border-color: var(--accent);
+      }
+
+      .scenario-chip.active {
+        background: var(--accent-glow);
+        color: var(--accent-light);
+        border-color: var(--accent);
+        font-weight: 500;
+      }
+
+      .scenario-status {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--text-muted);
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .chat-feed {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        min-height: 80px;
+      }
+
+      .chat-empty {
+        text-align: center;
+        padding: 36px 16px;
+        color: var(--text-dim);
+        font-size: 13px;
+        background: rgba(20, 20, 22, 0.4);
+        border: 1px dashed rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        line-height: 1.6;
+      }
+
+      .chat-turn {
+        background: rgba(20, 20, 24, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 14px;
+        padding: 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: all 0.2s ease;
+      }
+
+      .chat-turn:hover {
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .chat-turn.partner {
+        background: rgba(99, 102, 241, 0.06);
+        border: 1px solid rgba(99, 102, 241, 0.22);
+      }
+
+      .turn-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .turn-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--text-dim);
+      }
+
+      .turn-role-badge {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 6px;
+      }
+
+      .turn-role-badge.user {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+      }
+
+      .turn-role-badge.partner {
+        background: var(--accent-glow);
+        color: var(--accent-light);
+      }
+
+      .turn-score-badge {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .turn-score-badge.perfect {
+        background: var(--correct-bg);
+        color: var(--correct);
+        border: 1px solid rgba(34, 197, 94, 0.25);
+      }
+
+      .turn-score-badge.good {
+        background: var(--close-bg);
+        color: var(--close);
+        border: 1px solid rgba(245, 158, 11, 0.25);
+      }
+
+      .turn-score-badge.needs-work {
+        background: var(--wrong-bg);
+        color: var(--wrong);
+        border: 1px solid rgba(239, 68, 68, 0.25);
+      }
+
+      .turn-sentence-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .turn-sentence {
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      .turn-sentence ruby {
+        ruby-align: center;
+      }
+
+      .turn-sentence rt {
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
+        color: var(--accent-light);
+        font-weight: 500;
+      }
+
+      .turn-translation {
+        font-size: 13px;
+        color: var(--text-muted);
+        font-style: italic;
+      }
+
+      .turn-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .turn-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-size: 12px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .turn-chip.correct {
+        border-color: rgba(34, 197, 94, 0.3);
+        color: var(--correct);
+        background: var(--correct-bg);
+      }
+
+      .turn-chip.close {
+        border-color: rgba(245, 158, 11, 0.3);
+        color: var(--close);
+        background: var(--close-bg);
+      }
+
+      .turn-chip.wrong {
+        border-color: rgba(239, 68, 68, 0.3);
+        color: var(--wrong);
+        background: var(--wrong-bg);
+      }
+
+      .turn-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .turn-btn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--text-muted);
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.15s ease;
+      }
+
+      .turn-btn:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+      }
+
+      .turn-btn.playing {
+        background: var(--correct-bg);
+        color: var(--correct);
+        border-color: var(--correct);
+      }
+
+      .turn-btn.expanded {
+        background: var(--accent-glow);
+        color: var(--accent-light);
+        border-color: rgba(99, 102, 241, 0.4);
+      }
+
+      /* Alignment Panel */
+      .alignment-panel {
+        display: none;
+        background: rgba(10, 10, 14, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 14px 16px;
+        margin-top: 4px;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .alignment-panel.visible {
+        display: flex;
+      }
+
+      .alignment-title {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-dim);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .timeline-bar {
+        width: 100%;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 6px;
+        overflow: hidden;
+        display: flex;
+        position: relative;
+      }
+
+      .timeline-segment {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 600;
+        color: #fff;
+        border-right: 1px solid rgba(0, 0, 0, 0.3);
+        transition: filter 0.15s;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .timeline-segment:hover {
+        filter: brightness(1.25);
+      }
+
+      .timeline-segment.blank {
+        background: rgba(255, 255, 255, 0.03);
+        color: transparent;
+      }
+
+      .timeline-segment.token {
+        background: linear-gradient(180deg, var(--accent-light), var(--accent));
+      }
+
+      .timeline-segment.token.correct {
+        background: linear-gradient(180deg, #4ade80, #16a34a);
+      }
+
+      .timeline-segment.token.close {
+        background: linear-gradient(180deg, #fbbf24, #d97706);
+      }
+
+      .timeline-segment.token.wrong {
+        background: linear-gradient(180deg, #f87171, #dc2626);
+      }
+
+      .alignment-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .alignment-table th {
+        text-align: left;
+        color: var(--text-dim);
+        padding: 4px 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .alignment-table td {
+        padding: 5px 8px;
+        color: var(--text-muted);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      }
     </style>
   </head>
   <body>
@@ -992,6 +1426,60 @@
           <button class="example-btn" data-sentence="我正在学习中文">我正在学习中文</button>
           <button class="example-btn" data-sentence="这个问题有点难">这个问题有点难</button>
           <button class="example-btn" data-sentence="明天我们一起吃饭">明天我们一起吃饭</button>
+        </div>
+      </section>
+
+      <!-- Practice Chat Log & Alignment Section -->
+      <section class="chat-section" id="chatSection">
+        <div class="chat-nav">
+          <div class="chat-tabs">
+            <button class="chat-tab active" id="tabPracticeLog" onclick="setChatTab('log')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              Practice Log (<span id="chatLogCount">0</span>)
+            </button>
+            <button class="chat-tab" id="tabScenarios" onclick="setChatTab('scenarios')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Conversational Practice Mode
+            </button>
+          </div>
+          <div class="chat-actions">
+            <button class="chat-action-btn" onclick="exportChatMarkdown()" title="Export practice session to Markdown">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export MD
+            </button>
+            <button class="chat-action-btn" onclick="exportChatJSON()" title="Export raw alignment JSON">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              JSON
+            </button>
+            <button class="chat-action-btn" onclick="clearChatLog()" title="Clear practice history">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- Scenario Selector (Visible in Scenario Mode) -->
+        <div class="scenario-container" id="scenarioContainer">
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim);">
+            Choose Dialogue Scenario
+          </div>
+          <div class="scenario-chips" id="scenarioChips">
+            <!-- Rendered by JS -->
+          </div>
+          <div class="scenario-status" id="scenarioStatus">
+            <span id="scenarioProgressText">Select a scenario to start practicing</span>
+            <button id="scenarioNextBtn" class="turn-btn" style="display: none; background: var(--accent); color: #fff; border-color: var(--accent);" onclick="advanceScenario()">
+              Next Turn &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Feed -->
+        <div class="chat-feed" id="chatFeed">
+          <div class="chat-empty" id="chatEmpty">
+            No practice turns yet.<br/>
+            Tap the microphone above to speak, or switch to <strong>Conversational Practice Mode</strong> to start roleplay dialogues!
+          </div>
         </div>
       </section>
 
@@ -1479,6 +1967,18 @@
           // Animate results
           animateResults(results);
 
+          // Log practice turn and CTC alignment
+          if (typeof logPracticeTurn === 'function') {
+            logPracticeTurn({
+              sentence,
+              chars,
+              targetTokens,
+              results,
+              spansByLabel,
+              outT,
+              blob
+            });
+          }
         } catch (error) {
           console.error('Process error:', error);
         } finally {
@@ -1711,8 +2211,586 @@
         }
       });
 
+      // ==========================================
+      // Conversational Scenarios & Chat Log Module
+      // ==========================================
+      const CONVERSATION_SCENARIOS = [
+        {
+          id: "cafe",
+          title: "☕ 点咖啡 (Ordering Coffee)",
+          description: "Order a hot latte, customize sugar, and choose takeaway.",
+          turns: [
+            {
+              partnerText: "您好！欢迎光临，想喝点什么？",
+              partnerPinyin: "Nín hǎo! Huānyíng guānglín, xiǎng hē diǎn shénme?",
+              partnerTranslation: "Hello! Welcome, what would you like to drink?",
+              userPrompt: "我要一杯热拿铁",
+              userTranslation: "I want a cup of hot latte."
+            },
+            {
+              partnerText: "好的，请问需要加糖吗？",
+              partnerPinyin: "Hǎo de, qǐngwèn xūyào jiā táng ma?",
+              partnerTranslation: "Sure, do you need sugar?",
+              userPrompt: "不用加糖，谢谢",
+              userTranslation: "No sugar needed, thank you."
+            },
+            {
+              partnerText: "好的，在这儿喝还是带走？",
+              partnerPinyin: "Hǎo de, zài zhèr hē háishi dài zǒu?",
+              partnerTranslation: "Dine-in or takeaway?",
+              userPrompt: "带走，麻烦你了",
+              userTranslation: "Takeaway, thank you."
+            }
+          ]
+        },
+        {
+          id: "taxi",
+          title: "🚕 打出租车 (Taking a Taxi)",
+          description: "Direct a taxi driver to Peking University East Gate.",
+          turns: [
+            {
+              partnerText: "师傅问：你好，去哪儿啊？",
+              partnerPinyin: "Shīfu wèn: Nǐ hǎo, qù nǎr a?",
+              partnerTranslation: "Driver: Hello, where are you going?",
+              userPrompt: "师傅，去北京大学东门",
+              userTranslation: "Driver, to Peking University East Gate."
+            },
+            {
+              partnerText: "好嘞！走高速还是走二环？",
+              partnerPinyin: "Hǎolei! Zǒu gāosù háishi zǒu èrhuán?",
+              partnerTranslation: "Got it! Highway or 2nd ring road?",
+              userPrompt: "走高速吧，比较快",
+              userTranslation: "Take the highway, it's faster."
+            }
+          ]
+        },
+        {
+          id: "friend",
+          title: "🤝 朋友问候 (Greeting a Friend)",
+          description: "Catch up with a friend and make dinner plans.",
+          turns: [
+            {
+              partnerText: "好久不见！最近过得怎么样？",
+              partnerPinyin: "Hǎojiǔ bùjiàn! Zuìjìn guò de zěnmeyàng?",
+              partnerTranslation: "Long time no see! How have you been?",
+              userPrompt: "挺好的，我最近在学中文",
+              userTranslation: "Pretty good, I've been studying Chinese recently."
+            },
+            {
+              partnerText: "太棒了！今天晚上有空一起吃饭吗？",
+              partnerPinyin: "Tài bàng le! Jīntiān wǎnshang yǒu kòng yīqǐ chīfàn ma?",
+              partnerTranslation: "Awesome! Free to have dinner together tonight?",
+              userPrompt: "好啊，我们去吃火锅吧",
+              userTranslation: "Great, let's go have hotpot!"
+            }
+          ]
+        },
+        {
+          id: "restaurant",
+          title: "🥟 餐馆点菜 (Ordering Food)",
+          description: "Order dumplings, Kung Pao chicken, and tea.",
+          turns: [
+            {
+              partnerText: "服务员：您好，想点些什么菜？",
+              partnerPinyin: "Fúwùyuán: Nín hǎo, xiǎng diǎn xiē shénme cài?",
+              partnerTranslation: "Server: Hello, what would you like to order?",
+              userPrompt: "我们要一份水饺和宫保鸡丁",
+              userTranslation: "We'd like dumplings and Kung Pao chicken."
+            },
+            {
+              partnerText: "好的，还要喝点什么吗？",
+              partnerPinyin: "Hǎo de, hái yào hē diǎn shénme ma?",
+              partnerTranslation: "Sure, anything to drink?",
+              userPrompt: "还要一壶热茶，谢谢",
+              userTranslation: "Also a pot of hot tea, thanks."
+            }
+          ]
+        }
+      ];
+
+      // State extensions
+      state.chatHistory = [];
+      state.chatMode = 'log'; // 'log' | 'scenarios'
+      state.currentScenario = null;
+      state.scenarioStep = 0;
+      state.activeTurnAudio = null;
+      state.activeAudioTurnId = null;
+
+      // DOM references for chat
+      const tabPracticeLog = document.getElementById('tabPracticeLog');
+      const tabScenarios = document.getElementById('tabScenarios');
+      const scenarioContainer = document.getElementById('scenarioContainer');
+      const scenarioChips = document.getElementById('scenarioChips');
+      const scenarioProgressText = document.getElementById('scenarioProgressText');
+      const scenarioNextBtn = document.getElementById('scenarioNextBtn');
+      const chatFeed = document.getElementById('chatFeed');
+      const chatEmpty = document.getElementById('chatEmpty');
+      const chatLogCount = document.getElementById('chatLogCount');
+
+      function initChatModule() {
+        renderScenarioChips();
+        loadChatHistory();
+        renderChatFeed();
+      }
+
+      function setChatTab(mode) {
+        state.chatMode = mode;
+        if (mode === 'log') {
+          tabPracticeLog.classList.add('active');
+          tabScenarios.classList.remove('active');
+          scenarioContainer.classList.remove('active');
+        } else {
+          tabPracticeLog.classList.remove('active');
+          tabScenarios.classList.add('active');
+          scenarioContainer.classList.add('active');
+          if (!state.currentScenario) {
+            selectScenario(CONVERSATION_SCENARIOS[0].id);
+          }
+        }
+      }
+
+      function renderScenarioChips() {
+        if (!scenarioChips) return;
+        scenarioChips.innerHTML = '';
+        CONVERSATION_SCENARIOS.forEach(sc => {
+          const chip = document.createElement('button');
+          chip.className = `scenario-chip ${state.currentScenario?.id === sc.id ? 'active' : ''}`;
+          chip.textContent = sc.title;
+          chip.onclick = () => selectScenario(sc.id);
+          scenarioChips.appendChild(chip);
+        });
+      }
+
+      function selectScenario(scenarioId) {
+        const sc = CONVERSATION_SCENARIOS.find(s => s.id === scenarioId);
+        if (!sc) return;
+        state.currentScenario = sc;
+        state.scenarioStep = 0;
+        renderScenarioChips();
+        promptCurrentScenarioTurn();
+      }
+
+      function promptCurrentScenarioTurn() {
+        if (!state.currentScenario) return;
+        const total = state.currentScenario.turns.length;
+        const curIdx = state.scenarioStep;
+
+        if (curIdx >= total) {
+          scenarioProgressText.innerHTML = `🎉 <strong>${state.currentScenario.title}</strong> Completed! (${total}/${total} turns)`;
+          scenarioNextBtn.style.display = 'none';
+          return;
+        }
+
+        const turn = state.currentScenario.turns[curIdx];
+        scenarioProgressText.innerHTML = `Scenario: <strong>${state.currentScenario.title}</strong> &bull; Turn ${curIdx + 1} of ${total}`;
+        scenarioNextBtn.style.display = 'none';
+
+        // Add partner message to chat log if not already present
+        const partnerMsgId = `partner_${state.currentScenario.id}_${curIdx}`;
+        if (!state.chatHistory.some(m => m.id === partnerMsgId)) {
+          state.chatHistory.push({
+            id: partnerMsgId,
+            type: 'partner',
+            partnerText: turn.partnerText,
+            partnerPinyin: turn.partnerPinyin,
+            partnerTranslation: turn.partnerTranslation,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+          });
+          renderChatFeed();
+        }
+
+        // Set the user input to the expected response
+        sentenceInput.value = turn.userPrompt;
+        charactersEl.innerHTML = '';
+        document.querySelector('.sentence-section').classList.remove('hidden');
+        if (state.showPinyin) {
+          updateInputPinyin();
+        }
+      }
+
+      function advanceScenario() {
+        if (!state.currentScenario) return;
+        state.scenarioStep++;
+        promptCurrentScenarioTurn();
+      }
+
+      function logPracticeTurn(data) {
+        const { sentence, chars, targetTokens, results, spansByLabel, outT, blob } = data;
+        const totalChars = results.length;
+        const correctCount = results.filter(r => r.status === 'correct' || r.top1 === r.target).length;
+        const closeCount = results.filter(r => r.status === 'close').length;
+        const scorePercent = totalChars > 0 ? Math.round((correctCount / totalChars) * 100) : 0;
+        
+        let scoreClass = 'needs-work';
+        let scoreLabel = `${correctCount}/${totalChars} Correct (${scorePercent}%)`;
+        if (scorePercent >= 90) {
+          scoreClass = 'perfect';
+          scoreLabel = `✓ ${scorePercent}% Correct`;
+        } else if (scorePercent >= 60) {
+          scoreClass = 'good';
+          scoreLabel = `~ ${scorePercent}% Acceptable`;
+        }
+
+        const turnId = 'turn_' + Date.now();
+        const durationSec = (outT * 0.04).toFixed(2);
+        const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+        // Extract CTC frame timings for every character/syllable
+        const alignments = [];
+        for (let idx = 0; idx < totalChars; idx++) {
+          const span = (spansByLabel && spansByLabel[idx]) ? spansByLabel[idx] : [null, null];
+          const startFrame = span[0];
+          const endFrame = span[1];
+          const startTime = startFrame !== null ? (startFrame * 0.04).toFixed(2) : '0.00';
+          const endTime = endFrame !== null ? ((endFrame + 1) * 0.04).toFixed(2) : durationSec;
+          const durationMs = (startFrame !== null && endFrame !== null) ? Math.round((endFrame - startFrame + 1) * 40) : 0;
+          
+          alignments.push({
+            char: chars[idx],
+            targetToken: targetTokens[idx],
+            heardToken: results[idx]?.top1 || '-',
+            status: results[idx]?.status || 'wrong',
+            confidence: results[idx]?.pTarget ? Math.round(results[idx].pTarget * 100) : 0,
+            startFrame,
+            endFrame,
+            startTime,
+            endTime,
+            durationMs
+          });
+        }
+
+        const turnObj = {
+          id: turnId,
+          type: 'user',
+          sentence,
+          timestamp,
+          durationSec,
+          totalFrames: outT,
+          scorePercent,
+          scoreClass,
+          scoreLabel,
+          charsWithPinyin: chars.map((c, i) => ({
+            char: c,
+            pinyin: results[i]?.target || ''
+          })),
+          results: results.map((r, i) => ({
+            char: chars[i],
+            target: r.target,
+            heard: r.top1,
+            status: r.status,
+            sandhi: r.sandhi,
+            sandhiNote: r.sandhiNote,
+            originalPrediction: r.originalPrediction
+          })),
+          alignments,
+          audioBlob: blob,
+          audioUrl: blob ? URL.createObjectURL(blob) : null
+        };
+
+        state.chatHistory.push(turnObj);
+        saveChatHistory();
+        renderChatFeed();
+
+        // If in scenario mode, show next button
+        if (state.chatMode === 'scenarios' && state.currentScenario) {
+          const total = state.currentScenario.turns.length;
+          if (state.scenarioStep + 1 < total) {
+            scenarioNextBtn.style.display = 'inline-flex';
+            scenarioNextBtn.innerHTML = `Next Turn &rarr; ("${state.currentScenario.turns[state.scenarioStep + 1].userPrompt}")`;
+          } else {
+            scenarioNextBtn.style.display = 'inline-flex';
+            scenarioNextBtn.innerHTML = `Finish Scenario 🎉`;
+            scenarioNextBtn.onclick = () => {
+              state.scenarioStep++;
+              promptCurrentScenarioTurn();
+            };
+          }
+        }
+      }
+
+      function renderChatFeed() {
+        if (!chatFeed || !chatLogCount) return;
+        chatLogCount.textContent = state.chatHistory.filter(t => t.type === 'user').length;
+        
+        if (state.chatHistory.length === 0) {
+          chatFeed.innerHTML = `
+            <div class="chat-empty" id="chatEmpty">
+              No practice turns yet.<br/>
+              Tap the microphone above to speak, or switch to <strong>Conversational Practice Mode</strong> to start roleplay dialogues!
+            </div>
+          `;
+          return;
+        }
+
+        chatFeed.innerHTML = '';
+        state.chatHistory.forEach(item => {
+          if (item.type === 'partner') {
+            const el = document.createElement('div');
+            el.className = 'chat-turn partner';
+            el.innerHTML = `
+              <div class="turn-header">
+                <div class="turn-meta">
+                  <span class="turn-role-badge partner">Conversational Partner</span>
+                  <span>${item.timestamp}</span>
+                </div>
+              </div>
+              <div class="turn-sentence-row">
+                <div class="turn-sentence">${item.partnerText}</div>
+                <div class="turn-translation">${item.partnerTranslation}</div>
+              </div>
+              <div style="font-size: 13px; color: var(--accent-light); font-family: 'Inter', sans-serif;">
+                ${item.partnerPinyin}
+              </div>
+            `;
+            chatFeed.appendChild(el);
+          } else {
+            const el = document.createElement('div');
+            el.className = 'chat-turn';
+            el.id = item.id;
+
+            // Render ruby sentence
+            const sentenceRuby = (item.charsWithPinyin || []).map(p => 
+              `<ruby><rb>${p.char}</rb><rt>${pinyinToMarks(p.pinyin)}</rt></ruby>`
+            ).join('') || item.sentence;
+
+            // Render chips
+            const chipsHtml = (item.results || []).map(r => {
+              let chipClass = r.status === 'correct' || r.heard === r.target ? 'correct' : (r.status === 'close' ? 'close' : 'wrong');
+              let mark = chipClass === 'correct' ? '✓' : (chipClass === 'close' ? '~' : '✗');
+              return `
+                <span class="turn-chip ${chipClass}">
+                  <strong>${r.char}</strong>
+                  <span>${pinyinToMarks(r.target)}</span>
+                  <span>${mark}</span>
+                </span>
+              `;
+            }).join('');
+
+            // Build Timeline Bar & Table
+            let timelineBarsHtml = '';
+            let tableRowsHtml = '';
+            const totalSec = parseFloat(item.durationSec) || 1.0;
+
+            if (item.alignments && item.alignments.length > 0) {
+              item.alignments.forEach(align => {
+                const s = parseFloat(align.startTime) || 0;
+                const e = parseFloat(align.endTime) || s + 0.1;
+                const dur = Math.max(0.04, e - s);
+                const widthPct = Math.min(100, Math.max(8, (dur / totalSec) * 100)).toFixed(1);
+                const statusClass = align.status === 'correct' || align.heardToken === align.targetToken ? 'correct' : (align.status === 'close' ? 'close' : 'wrong');
+
+                timelineBarsHtml += `
+                  <div class="timeline-segment token ${statusClass}" style="width: ${widthPct}%;" title="${align.char} (${align.targetToken}): ${align.startTime}s - ${align.endTime}s">
+                    ${align.char}
+                  </div>
+                `;
+
+                tableRowsHtml += `
+                  <tr>
+                    <td><strong>${align.char}</strong> (${align.targetToken})</td>
+                    <td>${align.heardToken}</td>
+                    <td>${align.startTime}s &rarr; ${align.endTime}s</td>
+                    <td>${align.durationMs ? align.durationMs + 'ms' : '-'}</td>
+                    <td>${align.confidence}%</td>
+                  </tr>
+                `;
+              });
+            }
+
+            el.innerHTML = `
+              <div class="turn-header">
+                <div class="turn-meta">
+                  <span class="turn-role-badge user">You Spoke</span>
+                  <span>${item.timestamp} &bull; ${item.durationSec}s audio</span>
+                </div>
+                <div class="turn-score-badge ${item.scoreClass}">
+                  ${item.scoreLabel}
+                </div>
+              </div>
+              <div class="turn-sentence-row">
+                <div class="turn-sentence">${sentenceRuby}</div>
+              </div>
+              <div class="turn-chips">
+                ${chipsHtml}
+              </div>
+              <div class="turn-actions">
+                ${item.audioUrl ? `
+                  <button class="turn-btn" id="playBtn_${item.id}" onclick="playTurnAudio('${item.id}')">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                    Play Recording
+                  </button>
+                ` : ''}
+                <button class="turn-btn" onclick="retryTurnSentence('${item.sentence.replace(/'/g, "\\'")}')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                  Practice Again
+                </button>
+                <button class="turn-btn" id="alignBtn_${item.id}" onclick="toggleAlignmentPanel('${item.id}')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="6" x2="3" y2="6"/><line x1="15" y1="12" x2="3" y2="12"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+                  Line Up Audio (CTC Timings)
+                </button>
+              </div>
+              <div class="alignment-panel" id="alignPanel_${item.id}">
+                <div class="alignment-title">
+                  <span>CTC Forced Alignment Timeline</span>
+                  <span>0.00s &mdash; ${item.durationSec}s</span>
+                </div>
+                <div class="timeline-bar">
+                  ${timelineBarsHtml}
+                </div>
+                <table class="alignment-table">
+                  <thead>
+                    <tr>
+                      <th>Syllable (Target)</th>
+                      <th>Heard</th>
+                      <th>Time Window</th>
+                      <th>Duration</th>
+                      <th>Confidence</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${tableRowsHtml}
+                  </tbody>
+                </table>
+              </div>
+            `;
+            chatFeed.appendChild(el);
+          }
+        });
+      }
+
+      function toggleAlignmentPanel(turnId) {
+        const panel = document.getElementById('alignPanel_' + turnId);
+        const btn = document.getElementById('alignBtn_' + turnId);
+        if (!panel) return;
+        const isVisible = panel.classList.toggle('visible');
+        if (btn) btn.classList.toggle('expanded', isVisible);
+      }
+
+      function playTurnAudio(turnId) {
+        const turn = state.chatHistory.find(t => t.id === turnId);
+        if (!turn || !turn.audioUrl) return;
+
+        if (state.activeTurnAudio) {
+          state.activeTurnAudio.pause();
+          const prevBtn = document.getElementById('playBtn_' + state.activeAudioTurnId);
+          if (prevBtn) prevBtn.classList.remove('playing');
+        }
+
+        const btn = document.getElementById('playBtn_' + turnId);
+        const audio = new Audio(turn.audioUrl);
+        state.activeTurnAudio = audio;
+        state.activeAudioTurnId = turnId;
+        if (btn) btn.classList.add('playing');
+
+        audio.onended = () => {
+          if (btn) btn.classList.remove('playing');
+          state.activeTurnAudio = null;
+        };
+
+        audio.play().catch(e => console.warn('Audio play error:', e));
+      }
+
+      function retryTurnSentence(sentence) {
+        sentenceInput.value = sentence;
+        charactersEl.innerHTML = '';
+        document.querySelector('.sentence-section').classList.remove('hidden');
+        if (state.showPinyin) {
+          updateInputPinyin();
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function clearChatLog() {
+        if (confirm('Clear all practice history and conversation turns?')) {
+          state.chatHistory = [];
+          localStorage.removeItem('ear_practice_chat_history');
+          renderChatFeed();
+        }
+      }
+
+      function saveChatHistory() {
+        try {
+          const serializable = state.chatHistory.map(item => {
+            const clone = { ...item };
+            delete clone.audioBlob;
+            delete clone.audioUrl;
+            return clone;
+          });
+          localStorage.setItem('ear_practice_chat_history', JSON.stringify(serializable.slice(-50)));
+        } catch (e) {
+          console.warn('Could not save chat history to localStorage:', e);
+        }
+      }
+
+      function loadChatHistory() {
+        try {
+          const saved = localStorage.getItem('ear_practice_chat_history');
+          if (saved) {
+            state.chatHistory = JSON.parse(saved);
+          }
+        } catch (e) {
+          console.warn('Could not load chat history:', e);
+        }
+      }
+
+      function exportChatMarkdown() {
+        if (state.chatHistory.length === 0) {
+          alert('No practice history to export yet!');
+          return;
+        }
+
+        let md = `# Ear Mandarin Practice Session Log\n\n`;
+        md += `*Exported on ${new Date().toLocaleString()}*\n\n---\n\n`;
+
+        state.chatHistory.forEach((turn) => {
+          if (turn.type === 'partner') {
+            md += `### 🤖 Partner: ${turn.partnerText}\n`;
+            md += `*Pinyin: ${turn.partnerPinyin}*\n`;
+            md += `*Translation: ${turn.partnerTranslation}*\n\n`;
+          } else {
+            md += `### 🗣️ You: ${turn.sentence} (${turn.scoreLabel})\n`;
+            md += `- **Time:** ${turn.timestamp}\n`;
+            md += `- **Audio Duration:** ${turn.durationSec}s\n`;
+            md += `- **Syllable Alignments & Timings:**\n\n`;
+            md += `| Character | Target | Heard | Time Window | Duration | Confidence |\n`;
+            md += `| :--- | :--- | :--- | :--- | :--- | :--- |\n`;
+            (turn.alignments || []).forEach(a => {
+              md += `| ${a.char} | ${a.targetToken} | ${a.heardToken} | ${a.startTime}s - ${a.endTime}s | ${a.durationMs}ms | ${a.confidence}% |\n`;
+            });
+            md += `\n---\n\n`;
+          }
+        });
+
+        downloadFile(md, `mandarin-practice-${new Date().toISOString().slice(0, 10)}.md`, 'text/markdown');
+      }
+
+      function exportChatJSON() {
+        if (state.chatHistory.length === 0) {
+          alert('No practice history to export yet!');
+          return;
+        }
+        const serializable = state.chatHistory.map(item => {
+          const clone = { ...item };
+          delete clone.audioBlob;
+          delete clone.audioUrl;
+          return clone;
+        });
+        const json = JSON.stringify(serializable, null, 2);
+        downloadFile(json, `mandarin-practice-${new Date().toISOString().slice(0, 10)}.json`, 'application/json');
+      }
+
+      function downloadFile(content, fileName, contentType) {
+        const a = document.createElement('a');
+        const file = new Blob([content], { type: contentType });
+        a.href = URL.createObjectURL(file);
+        a.download = fileName;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }
+
       // Initialize on load
       init();
+      initChatModule();
     </script>
   </body>
 </html>
