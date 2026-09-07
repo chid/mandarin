@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ear: Project Notes & Executive Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg: #0a0a0b;
+        --bg-subtle: #141417;
+        --card-bg: rgba(22, 22, 26, 0.7);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --text: #fafafa;
+        --text-muted: #a1a1aa;
+        --text-dim: #71717a;
+        --accent: #6366f1;
+        --accent-light: #818cf8;
+        --accent-glow: rgba(99, 102, 241, 0.25);
+        --correct: #22c55e;
+        --correct-bg: rgba(34, 197, 94, 0.12);
+        --amber: #f59e0b;
+        --amber-bg: rgba(245, 158, 11, 0.12);
+        --cyan: #06b6d4;
+        --cyan-bg: rgba(6, 182, 212, 0.12);
+        --code-bg: #111114;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background: radial-gradient(ellipse at 50% 10%, #141426 0%, #0a0a0b 45%, #050506 100%);
+        color: var(--text);
+        min-height: 100vh;
+        line-height: 1.65;
+        padding-bottom: 90px;
+      }
+
+      a {
+        color: var(--accent-light);
+        text-decoration: none;
+        transition: color 0.15s ease;
+      }
+      a:hover {
+        color: #c7d2fe;
+        text-decoration: underline;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(10, 10, 11, 0.85);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--card-border);
+        padding: 14px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .nav-badge {
+        font-size: 11px;
+        font-weight: 500;
+        background: var(--accent-glow);
+        color: var(--accent-light);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        padding: 2px 8px;
+        border-radius: 9999px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 13px;
+      }
+
+      .nav-btn {
+        padding: 6px 14px;
+        border-radius: 6px;
+        background: var(--bg-subtle);
+        border: 1px solid var(--card-border);
+        color: var(--text);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+      }
+      .nav-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        text-decoration: none;
+      }
+      .nav-btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .nav-btn.primary:hover {
+        background: #4f46e5;
+      }
+
+      /* Container */
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 40px 24px 0 24px;
+      }
+
+      /* Header */
+      .header-box {
+        margin-bottom: 40px;
+        border-bottom: 1px solid var(--card-border);
+        padding-bottom: 28px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--correct);
+        background: var(--correct-bg);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        padding: 4px 12px;
+        border-radius: 9999px;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #ffffff 40%, #a1a1aa 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .meta-line {
+        font-size: 14px;
+        color: var(--text-dim);
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      /* Section */
+      .content-section {
+        margin-bottom: 40px;
+      }
+
+      h2 {
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: -0.01em;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      p {
+        color: var(--text-muted);
+        font-size: 15px;
+        margin-bottom: 16px;
+      }
+
+      /* Cards */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .note-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .note-card h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .note-card p {
+        font-size: 13.5px;
+        color: var(--text-muted);
+        margin: 0;
+        line-height: 1.55;
+      }
+
+      /* Checklist */
+      .checklist {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 16px 0;
+      }
+
+      .checklist li {
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 14px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .check-icon {
+        color: var(--correct);
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+
+      .todo-icon {
+        color: var(--amber);
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+
+      /* Tables */
+      .table-wrapper {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        overflow-x: auto;
+        margin: 16px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        text-align: left;
+      }
+
+      th {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 12px 16px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-dim);
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      td {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--card-border);
+        color: var(--text-muted);
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* Code box */
+      .code-box {
+        background: var(--code-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        padding: 16px 18px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        line-height: 1.55;
+        overflow-x: auto;
+        color: #e2e8f0;
+        margin: 14px 0;
+      }
+      .code-comment { color: #64748b; }
+      .code-kw { color: #f43f5e; }
+      .code-fn { color: #38bdf8; }
+      .code-str { color: #a3e635; }
+      .code-num { color: #fbbf24; }
+
+      /* Footer */
+      footer {
+        margin-top: 60px;
+        text-align: center;
+        color: var(--text-dim);
+        font-size: 13px;
+        border-top: 1px solid var(--card-border);
+        padding-top: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <span>Ear Project</span>
+        <span class="nav-badge">Notes</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-btn">Mandarin Tutor</a>
+        <a href="multilingual.html" class="nav-btn">Multi-Lang Spec</a>
+        <a href="plan.html" class="nav-btn">Roadmap</a>
+        <a href="https://github.com/chid/mandarin" target="_blank" rel="noopener" class="nav-btn primary">GitHub</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <header class="header-box">
+        <span class="tag">&#10003; Project Handoff &amp; Summary</span>
+        <h1>Project Notes: Ear Multilingual &amp; Conversational Tutor</h1>
+        <div class="meta-line">
+          <span><strong>Repository:</strong> <a href="https://github.com/chid/mandarin" target="_blank">github.com/chid/mandarin</a></span>
+          <span><strong>Model:</strong> 9M Conformer CTC INT8 (~14MB)</span>
+          <span><strong>Updated:</strong> September 2026</span>
+        </div>
+      </header>
+
+      <!-- Section 1 -->
+      <section class="content-section">
+        <h2>1. Executive Summary &amp; Completed Deliverables</h2>
+        <p>The system is an on-device speech evaluation and pronunciation tutor based on Simon Edwardsson's research, running entirely client-side in the browser via ONNX Runtime WebAssembly SIMD.</p>
+
+        <div class="card-grid">
+          <div class="note-card">
+            <h3>&#128193; Git &amp; Blog Post Archive</h3>
+            <p>Git repository initialized on branch <code>main</code> and pushed to <a href="https://github.com/chid/mandarin" target="_blank">chid/mandarin</a>. Simon Edwardsson's full blog post, images, and videos are archived locally in <code>blog_post/</code> and gitignored.</p>
+          </div>
+          <div class="note-card">
+            <h3>&#127760; Multilingual Specification</h3>
+            <p>Created <a href="multilingual.html"><code>multilingual.html</code></a>: architectural analysis, linguistic feasibility matrix, and interactive simulator comparing Mandarin, Cantonese, Vietnamese, and Thai.</p>
+          </div>
+          <div class="note-card">
+            <h3>&#128172; Practice Chat Log &amp; Alignment</h3>
+            <p>Integrated real-time conversation logging into <a href="index.html"><code>index.html</code></a>. Added per-turn audio playback, retry buttons, and the <strong>"Line Up Audio"</strong> CTC frame timing breakdown.</p>
+          </div>
+          <div class="note-card">
+            <h3>&#9749; Conversational Scenarios</h3>
+            <p>Added 4 realistic multi-turn roleplay dialogues (Ordering Coffee, Taking a Taxi, Greeting a Friend, Restaurant Ordering) with partner prompts and automatic turn progression.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2 -->
+      <section class="content-section">
+        <h2>2. Architecture &amp; Invariance Map</h2>
+        <p>A breakdown of components that are completely language-invariant versus those requiring per-language adaptation:</p>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>File</th>
+                <th>Language Status</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Audio Frontend</strong></td>
+                <td><code>audio-processor.js</code></td>
+                <td><strong>100% Invariant</strong></td>
+                <td>16kHz audio &rarr; 80-dim log-mel filterbank + per-utterance CMVN. Universal human vocal acoustics.</td>
+              </tr>
+              <tr>
+                <td><strong>Alignment Trellis</strong></td>
+                <td><code>ctc.js</code></td>
+                <td><strong>100% Invariant</strong></td>
+                <td>Log-softmax calculation and Viterbi dynamic programming forced alignment.</td>
+              </tr>
+              <tr>
+                <td><strong>Silence Filter</strong></td>
+                <td><code>scoring.js</code></td>
+                <td><strong>100% Invariant</strong></td>
+                <td>Decouples UI span from scoring by ignoring frames where P(&lt;blank&gt;) &gt; 0.7.</td>
+              </tr>
+              <tr>
+                <td><strong>Vocabulary &amp; Tokens</strong></td>
+                <td><code>vocab.json</code></td>
+                <td>Language-Specific</td>
+                <td>Mandarin uses 1,254 Pinyin+Tone tokens. Cantonese uses ~2k Jyutping; Viet uses ~5k syllables; Thai uses ~3.5k tokens.</td>
+              </tr>
+              <tr>
+                <td><strong>G2P Front-End</strong></td>
+                <td><code>pinyin.js</code></td>
+                <td>Language-Specific</td>
+                <td>Pinyin converter for Mandarin. Replaced with <code>to-jyutping</code> for Cantonese, regex for Viet, and Trie for Thai.</td>
+              </tr>
+              <tr>
+                <td><strong>Web App &amp; Log</strong></td>
+                <td><code>index.html</code></td>
+                <td>Language-Agnostic Core</td>
+                <td>Audio recording, WebAssembly ONNX inference, practice log, CTC alignment timeline, and scenarios.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="content-section">
+        <h2>3. "Line Up Audio" CTC Alignment Breakdown</h2>
+        <p>Forced alignment accurately maps spoken audio frames to target syllables without guessing or auto-correcting:</p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Syllable (Target)</th>
+                <th>Heard</th>
+                <th>Time Window</th>
+                <th>Duration</th>
+                <th>Confidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>他</strong> (<code>ta1</code>)</td>
+                <td><code>ta1</code></td>
+                <td>0.16s &rarr; 0.44s</td>
+                <td>280 ms</td>
+                <td>99%</td>
+              </tr>
+              <tr>
+                <td><strong>是</strong> (<code>shi4</code>)</td>
+                <td><code>shi4</code></td>
+                <td>0.48s &rarr; 0.80s</td>
+                <td>320 ms</td>
+                <td>98%</td>
+              </tr>
+              <tr>
+                <td><strong>我</strong> (<code>wo3</code>)</td>
+                <td><code>wo3</code></td>
+                <td>0.84s &rarr; 1.20s</td>
+                <td>360 ms</td>
+                <td>94%</td>
+              </tr>
+              <tr>
+                <td><strong>的</strong> (<code>de5</code>)</td>
+                <td><code>de5</code></td>
+                <td>1.24s &rarr; 1.48s</td>
+                <td>240 ms</td>
+                <td>89%</td>
+              </tr>
+              <tr>
+                <td><strong>朋</strong> (<code>peng2</code>)</td>
+                <td><code>peng2</code></td>
+                <td>1.52s &rarr; 1.88s</td>
+                <td>360 ms</td>
+                <td>96%</td>
+              </tr>
+              <tr>
+                <td><strong>友</strong> (<code>you5</code>)</td>
+                <td><code>you5</code></td>
+                <td>1.92s &rarr; 2.20s</td>
+                <td>280 ms</td>
+                <td>92%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="content-section">
+        <h2>4. Continuation Roadmap Summary</h2>
+        <ul class="checklist">
+          <li>
+            <span class="check-icon">&#10003;</span>
+            <span><strong>Phase 1: Multi-Lang Tokenizers</strong> &mdash; Cantonese Jyutping and Vietnamese space-separated syllabification verified in <code>multilingual.html</code>.</span>
+          </li>
+          <li>
+            <span class="todo-icon">&#9633;</span>
+            <span><strong>Phase 1 (Next): Data Training Pipeline</strong> &mdash; Download Common Voice Cantonese v17 (~100h) and VIVOS Vietnamese (~15h); prepare <code>train_ctc.py</code>.</span>
+          </li>
+          <li>
+            <span class="check-icon">&#10003;</span>
+            <span><strong>Phase 2: CTC Alignment Timeline</strong> &mdash; Visual color-coded duration bars and millisecond timing tables implemented in <code>index.html</code>.</span>
+          </li>
+          <li>
+            <span class="todo-icon">&#9633;</span>
+            <span><strong>Phase 2 (Next): Click-to-Play Syllables</strong> &mdash; Use Web Audio buffer slicing to play individual 200–400ms syllable audio clips.</span>
+          </li>
+          <li>
+            <span class="check-icon">&#10003;</span>
+            <span><strong>Phase 3: Conversational Mode</strong> &mdash; 4 roleplay scenarios with partner prompts, ruby annotations, and auto-progression.</span>
+          </li>
+          <li>
+            <span class="todo-icon">&#9633;</span>
+            <span><strong>Phase 3 (Next): Native Web Speech TTS</strong> &mdash; Speak dialogue partner lines using native browser <code>speechSynthesis</code>.</span>
+          </li>
+          <li>
+            <span class="todo-icon">&#9633;</span>
+            <span><strong>Phase 4: Mobile PWA &amp; Storage</strong> &mdash; Add Service Worker caching and IndexedDB recording persistence for offline mobile practice.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Section 5 -->
+      <section class="content-section">
+        <h2>5. Developer Quickstart &amp; Commands</h2>
+        <div class="code-box"><span class="code-comment"># Start the local web server (with COOP/COEP Cross-Origin isolation headers)</span>
+python3 server.py --port 8000
+
+<span class="code-comment"># Terminal CLI evaluation</span>
+./cli.py eval samples/test_friend.wav --sentence "他是我的朋友"
+./cli.py eval samples/test_nihao.wav --sentence "你好" --json
+
+<span class="code-comment"># Check target sentence CTC tokens</span>
+./cli.py pinyin "今天天气很好"</div>
+      </section>
+
+      <!-- Section 6 -->
+      <section class="content-section">
+        <h2>6. Page Directory &amp; Navigation Links</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Page</th>
+                <th>File Path</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="index.html"><strong>Interactive Web Tutor</strong></a></td>
+                <td><code>index.html</code></td>
+                <td>Client-side microphone recording, CTC alignment, practice log, and conversational scenarios.</td>
+              </tr>
+              <tr>
+                <td><a href="multilingual.html"><strong>Multilingual Spec</strong></a></td>
+                <td><code>multilingual.html</code></td>
+                <td>Architectural analysis, feasibility matrix, and interactive simulator for Cantonese, Viet, and Thai.</td>
+              </tr>
+              <tr>
+                <td><a href="plan.html"><strong>Roadmap &amp; Tracker</strong></a></td>
+                <td><code>plan.html</code></td>
+                <td>Interactive checklist with live progress calculation, code recipes, and detailed project roadmap.</td>
+              </tr>
+              <tr>
+                <td><a href="notes.html"><strong>Project Notes</strong></a></td>
+                <td><code>notes.html</code></td>
+                <td>Executive briefing, architecture summary, and developer handoff documentation.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer>
+        <p>Ear: On-Device Speech Model &copy; 2026. Based on Simon Edwardsson's research.</p>
+        <p style="margin-top: 6px;">
+          <a href="index.html">Tutor</a> &bull;
+          <a href="multilingual.html">Multi-Lang</a> &bull;
+          <a href="plan.html">Roadmap</a> &bull;
+          <a href="notes.html">Notes</a> &bull;
+          <a href="https://github.com/chid/mandarin" target="_blank">GitHub</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
