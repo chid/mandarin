@@ -10,10 +10,13 @@ Local setup and implementation based on Simon Edwardsson's blog post:
 - **Tiny 9M Conformer Model**: ~11 MB INT8 quantized ONNX model (`tiny_int8.onnx`).
 - **Pinyin + Tone as First-Class Tokens**: 1,254 token vocabulary mapping every Pinyin syllable + tone (1–5).
 - **Viterbi CTC Forced Alignment**: Pinpoints syllable timings and evaluates confidence per character without auto-correcting errors.
+- **"Line Up Audio" Syllable Timeline**: Millisecond-precision visual timing bars and duration breakdown per syllable.
+- **Practice Chat Log & Conversational Scenarios**: Turn-by-turn session logging, audio replay, retry buttons, and 4 roleplay scenarios (Coffee ordering, Taxi directions, Friend greeting, Restaurant ordering).
 - **Silence Filtering**: Ignores blank leading/trailing frames during scoring so natural pauses don't degrade confidence scores.
 - **Tone Sandhi Rules**: Built-in support for standard Mandarin sandhi (e.g. 3-3 tone sandhi, 不 `bu4` before 4th tone, 一 `yi1` before 4th or 1/2/3 tones).
+- **Multilingual Support Blueprint**: Formal specifications and interactive tokenizer simulators for **Cantonese**, **Vietnamese**, and **Thai** (`multilingual.html`).
 - **Web & CLI Interfaces**:
-  1. **Interactive Web App**: In-browser client-side evaluation with microphone input and audio playback.
+  1. **Interactive Web App**: In-browser client-side evaluation with microphone input, audio playback, and chat history.
   2. **Python CLI & API**: Evaluate audio files (WAV, MP3, FLAC, AIFF) directly from terminal.
 
 ---
@@ -77,7 +80,10 @@ Convert Chinese sentences to expected CTC tokens:
 .
 ├── tiny_int8.onnx         # 9M parameter INT8 quantized Conformer CTC model (~14 MB)
 ├── vocab.json             # 1,254 Pinyin+Tone vocabulary tokens
-├── index.html             # Web application interface
+├── index.html             # Web application with practice log & CTC alignment
+├── multilingual.html      # Multilingual architecture spec (Cantonese, Viet, Thai)
+├── plan.html              # Interactive continuation roadmap & developer checklist
+├── notes.html             # Executive handoff briefing & architectural reference
 ├── audio-processor.js     # Web Audio API 80-mel filterbank & STFT extraction
 ├── pinyin.js              # Web Pinyin conversion utilities
 ├── ctc.js                 # Log-softmax & Viterbi forced alignment in JS
